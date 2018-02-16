@@ -1,7 +1,6 @@
 # Jamcestry
 
-Collaborators 
+
+##Collaborators 
 
 Mike 
-Anthony
-Jeremy
