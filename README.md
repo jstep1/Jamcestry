@@ -1,1 +1,4 @@
 # Jamcestry
+
+# Collaborators
+Jeremy Stepanovich
