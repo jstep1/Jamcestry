@@ -1,5 +1,4 @@
 # Jamcestry
 
 # Collaborators
-Jeremy
-Mike 
+Jeremy Stepanovich, Anthony Peterson and Mike Binder
