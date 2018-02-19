@@ -40,7 +40,7 @@
         </div>
 
         <div class="row">
-            <div class="card col-md-8 offset-md-1">
+            <div class="card col-md-7 offset-md-1">
                 <div id="artist-name">
 
                 </div>
@@ -75,10 +75,11 @@
 
 
 
-            <div class="card col-md-2" id="trees">
+            <div class="card col-md-2 offset-md-1" id="trees">
                 <div id="tree1">
                     <p id="select1">
-                        <strong>Tree Tracker</strong>
+                        <span><strong>Tree Tracker</strong></span>
+                        <span><img src="images/treeInstructionsIcon.png" class="treeInstructions" data-toggle="tooltip" data-placement="left"></span>
                 </div>
                 <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
             </div>
@@ -90,6 +91,8 @@
 
 
     <script>
+
+      
 
         var cardCreation = function (enter) {
 
@@ -172,9 +175,9 @@
                     }
                 }
 
-                influencesIDs.splice(4);
+                influencesIDs.splice(10);
 
-                followersIDs.splice(4);
+                followersIDs.splice(10);
 
                 var infButtons = $("<div>");
 
@@ -189,9 +192,7 @@
                         method: "GET"
                     }).then(function (info) {
                         infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(info.artists[0].name));
-                        if (i % 2 !== 0) {
-                            infButtons.append("<br>");
-                        };
+
                     });
 
                 };
@@ -205,9 +206,7 @@
                         method: "GET"
                     }).then(function (info) {
                         folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(info.artists[0].name));
-                        if (i % 2 !== 0) {
-                            folButtons.append("<br>");
-                        };
+
                     });
                 };
 
@@ -220,6 +219,8 @@
             });
 
         };
+
+
 
         $(".card").hide();
 
@@ -239,6 +240,7 @@
             cardCreation(userInput);
             $("#artistForm").val("");
 
+
         });
 
         var treeOneButtons = $("<div class='tr1'>");
@@ -250,17 +252,28 @@
             var userInput = $(this).text()
             cardCreation(userInput);
             console.log($(this).attr("id", "infl"));
-            treeOneButtons.append($("<button id='infl' style='background-color: brown'>").html(userInput));
+            treeOneButtons.append($("<button id='inflTree' class='btn inflTreeIcon' width='100%'>").html("<span><img src='images/seedIconWhite.png' class='seedWhite' width='30' heigh='25'>" + userInput + "</span>"));
             $("#tree1").append(treeOneButtons);
 
         });
 
+        $(document).on("click", ".inflTreeIcon", function () {
+            var userInput = $(this).text()
+            cardCreation(userInput);
+        });
+
+
         $(document).on("click", "#fol", function () {
             var userInput = $(this).text()
             cardCreation(userInput);
-            treeOneButtons.append($("<button style='background-color: green'>").html(userInput));
+            treeOneButtons.append($("<button id='folTree' class='btn folTreeIcon' width='100%'>").html("<span><img src='images/treeIconWhite.png' class='treeWhite' width='31' height='30'>" + userInput + "</span>"));
             $("#tree1").append(treeOneButtons);
 
+        });
+
+        $(document).on("click", ".folTreeIcon", function () {
+            var userInput = $(this).text()
+            cardCreation(userInput);
         });
 
         $(document).on("click", "#clear1", function () {
