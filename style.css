@@ -114,3 +114,19 @@ body .tr1 {
     text-align: center;
     
 }
+
+#icon {
+    
+    height: 200px;
+    width: auto;
+    align-content: center;
+    color: green;
+    text-shadow: green;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.icons {
+    text-align: center;
+    padding-top: 100px;
+
+}
