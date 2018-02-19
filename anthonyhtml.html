@@ -95,46 +95,15 @@
 
             var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
 
-            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
+            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
             var napsterURL = "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" + enter + "&type=artist&limit=1";
 
-            $.ajax({
-                url: discogsURL,
-                method: "GET"
-            }).then(function (response) {
 
-                var id = response.results[0].resource_url;
-
-                $.ajax({
-                    url: id,
-                    method: "GET"
-                }).then(function (info) {
-
-                    var person = [
-                        "<b>Bio: </b>" + info.profile,
-                        "<b>Real Name: </b>" + info.realname,
-                        "<b>Webpage: </b>" + info.urls[0]];
-
-                    var personDiv = $("<div>");
-
-                    for (var i = 0; i < person.length; i++) {
-                        var artist = $("<div>");
-                        artist.html(person[i]);
-                        personDiv.append(artist);
-                        personDiv.append("<hr>");
-                    }
-                    $("#input").html(personDiv);
-                });
-
-            });
-
-
-
-            $.ajax({
-                url: lastfmURL,
-                method: "GET"
-            }).then(function (response) {
+$.ajax({
+          url: lastfmURL,
+          method: "GET"
+        }).then(function(response) {
 
                 var artistName = response.artist.name
 
@@ -144,12 +113,59 @@
 
                 var imageElement = imageSrc[Object.keys(imageSrc)[0]];
 
-                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px'>");
+                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
 
                 $("#pic").html(image);
-            });
 
-            $.ajax({
+                var personGenre = [];
+
+                var personGenreString = response.artist.tags.tag;
+
+                for(var i=0; i<personGenreString.length; i++){
+                    
+                    if(i <= 0) {
+                        personGenre.push(personGenreString[i].name); 
+                    }
+                    else {
+                        personGenre.push(" " + personGenreString[i].name);
+                    }}
+
+                var similarArtists = [];
+
+                var similarArtistsString = response.artist.similar.artist;
+
+                for(var i=0; i<similarArtistsString.length; i++){
+                    
+                    if(i <= 0) {
+                        similarArtists.push("<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>"); 
+                    }
+                    else {
+                        similarArtists.push(" " + "<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>");
+                    }}
+
+                var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content + "</div>",
+                    "<b>Genre: </b>" + personGenre,
+                    "<b>Find Similar Artists: </b>" + similarArtists];
+
+                var seeMore = $("<div>");
+                seeMore.text("See more...");
+                $("#bio").append(seeMore);
+
+                var personDiv = $("<div>");
+
+            for(var i=0; i<person.length; i++) {
+                var artist = $("<div>");
+                artist.html(person[i]);
+                personDiv.append(artist);
+                personDiv.append("<br>");
+            }
+            $("#pic").append(personDiv);
+        });
+
+
+
+
+$.ajax({
                 url: napsterURL,
                 method: "GET"
             }).then(function (response) {
@@ -249,7 +265,6 @@
         $(document).on("click", "#infl", function () {
             var userInput = $(this).text()
             cardCreation(userInput);
-            console.log($(this).attr("id", "infl"));
             treeOneButtons.append($("<button id='infl' style='background-color: brown'>").html(userInput));
             $("#tree1").append(treeOneButtons);
 
@@ -278,6 +293,19 @@
                 console.log(treeOne);
             }
         });
+
+var expand = false;
+
+$(document).on("click", ".bio", function() {
+    if(!expand){
+    $(this).removeAttr("id", "bio");
+    expand = true;
+    }
+    else {
+    $(this).attr("id", "bio");
+    expand = false;
+    }
+});
 
 
 

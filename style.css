@@ -114,3 +114,10 @@ body .tr1 {
     text-align: center;
     
 }
+
+#bio {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
+}

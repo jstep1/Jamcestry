@@ -319,8 +319,6 @@ var cardCreation = function(enter) {
             $("#followers").html(folButtons);
     
             });
-      
-};
 
 // Submit artist selection and begin the function to generate their information
     
