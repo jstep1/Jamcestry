@@ -42,7 +42,7 @@
         </div>
 
         <div class="row">
-            <div class="card col-md-7 offset-md-1">
+            <div class="card col-md-8 offset-md-1">
                 <div id="artist-name">
 
                 </div>
@@ -77,11 +77,10 @@
 
 
 
-            <div class="card col-md-2 offset-md-1" id="trees">
+            <div class="card col-md-2" id="trees">
                 <div id="tree1">
                     <p id="select1">
-                        <span><strong>Tree Tracker</strong></span>
-                        <span><img src="images/treeInstructionsIcon.png" class="treeInstructions" data-toggle="tooltip" data-placement="left"></span>
+                        <strong>Tree Tracker</strong>
                 </div>
                 <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
             </div>
@@ -93,25 +92,56 @@
         <img src="images/seeds.png" id="icon"><img src="images/phones.png" id="icon"><img src="images/plant.png" id="icon">
         </div>
 
+        <div id="page-footer"></div>
+                
 
 
     <script>
-
-      
 
         var cardCreation = function (enter) {
 
             var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
 
-            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
+            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
             var napsterURL = "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" + enter + "&type=artist&limit=1";
 
+            $.ajax({
+                url: discogsURL,
+                method: "GET"
+            }).then(function (response) {
 
-$.ajax({
-          url: lastfmURL,
-          method: "GET"
-        }).then(function(response) {
+                var id = response.results[0].resource_url;
+
+                $.ajax({
+                    url: id,
+                    method: "GET"
+                }).then(function (info) {
+
+                    var person = [
+                        "<b>Bio: </b>" + info.profile,
+                        "<b>Real Name: </b>" + info.realname,
+                        "<b>Webpage: </b>" + info.urls[0]];
+
+                    var personDiv = $("<div>");
+
+                    for (var i = 0; i < person.length; i++) {
+                        var artist = $("<div>");
+                        artist.html(person[i]);
+                        personDiv.append(artist);
+                        personDiv.append("<hr>");
+                    }
+                    $("#input").html(personDiv);
+                });
+
+            });
+
+
+
+            $.ajax({
+                url: lastfmURL,
+                method: "GET"
+            }).then(function (response) {
 
                 var artistName = response.artist.name
 
@@ -121,59 +151,12 @@ $.ajax({
 
                 var imageElement = imageSrc[Object.keys(imageSrc)[0]];
 
-                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
+                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px'>");
 
                 $("#pic").html(image);
+            });
 
-                var personGenre = [];
-
-                var personGenreString = response.artist.tags.tag;
-
-                for(var i=0; i<personGenreString.length; i++){
-                    
-                    if(i <= 0) {
-                        personGenre.push(personGenreString[i].name); 
-                    }
-                    else {
-                        personGenre.push(" " + personGenreString[i].name);
-                    }}
-
-                var similarArtists = [];
-
-                var similarArtistsString = response.artist.similar.artist;
-
-                for(var i=0; i<similarArtistsString.length; i++){
-                    
-                    if(i <= 0) {
-                        similarArtists.push("<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>"); 
-                    }
-                    else {
-                        similarArtists.push(" " + "<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>");
-                    }}
-
-                var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content + "</div>",
-                    "<b>Genre: </b>" + personGenre,
-                    "<b>Find Similar Artists: </b>" + similarArtists];
-
-                var seeMore = $("<div>");
-                seeMore.text("See more...");
-                $("#bio").append(seeMore);
-
-                var personDiv = $("<div>");
-
-            for(var i=0; i<person.length; i++) {
-                var artist = $("<div>");
-                artist.html(person[i]);
-                personDiv.append(artist);
-                personDiv.append("<br>");
-            }
-            $("#pic").append(personDiv);
-        });
-
-
-
-
-$.ajax({
+            $.ajax({
                 url: napsterURL,
                 method: "GET"
             }).then(function (response) {
@@ -213,7 +196,9 @@ $.ajax({
                         method: "GET"
                     }).then(function (info) {
                         infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(info.artists[0].name));
-
+                        if (i % 2 !== 0) {
+                            infButtons.append("<br>");
+                        };
                     });
 
                 };
@@ -227,7 +212,9 @@ $.ajax({
                         method: "GET"
                     }).then(function (info) {
                         folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(info.artists[0].name));
-
+                        if (i % 2 !== 0) {
+                            folButtons.append("<br>");
+                        };
                     });
                 };
 
@@ -240,8 +227,6 @@ $.ajax({
             });
 
         };
-
-
 
         $(".card").hide();
 
@@ -271,7 +256,6 @@ $(".icons").promise().done(function(){
 });
           
 
-
         });
 
         var treeOneButtons = $("<div class='tr1'>");
@@ -282,33 +266,18 @@ $(".icons").promise().done(function(){
         $(document).on("click", "#infl", function () {
             var userInput = $(this).text()
             cardCreation(userInput);
-<<<<<<< HEAD
-            treeOneButtons.append($("<button id='infl' style='background-color: brown'>").html(userInput));
-=======
             console.log($(this).attr("id", "infl"));
-            treeOneButtons.append($("<button id='inflTree' class='btn inflTreeIcon' width='100%'>").html("<span><img src='images/seedIconWhite.png' class='seedWhite' width='30' heigh='25'>" + userInput + "</span>"));
->>>>>>> 1ddb623d76434141b61d02138841711bf2828286
+            treeOneButtons.append($("<button id='infl' style='background-color: brown'>").html(userInput));
             $("#tree1").append(treeOneButtons);
 
         });
-
-        $(document).on("click", ".inflTreeIcon", function () {
-            var userInput = $(this).text()
-            cardCreation(userInput);
-        });
-
 
         $(document).on("click", "#fol", function () {
             var userInput = $(this).text()
             cardCreation(userInput);
-            treeOneButtons.append($("<button id='folTree' class='btn folTreeIcon' width='100%'>").html("<span><img src='images/treeIconWhite.png' class='treeWhite' width='31' height='30'>" + userInput + "</span>"));
+            treeOneButtons.append($("<button style='background-color: green'>").html(userInput));
             $("#tree1").append(treeOneButtons);
 
-        });
-
-        $(document).on("click", ".folTreeIcon", function () {
-            var userInput = $(this).text()
-            cardCreation(userInput);
         });
 
         $(document).on("click", "#clear1", function () {
@@ -326,19 +295,6 @@ $(".icons").promise().done(function(){
                 console.log(treeOne);
             }
         });
-
-var expand = false;
-
-$(document).on("click", ".bio", function() {
-    if(!expand){
-    $(this).removeAttr("id", "bio");
-    expand = true;
-    }
-    else {
-    $(this).attr("id", "bio");
-    expand = false;
-    }
-});
 
 
 
