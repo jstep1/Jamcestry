@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jamcestry (WORKING)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amiri" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="page-header">
+        <h1>
+            <span>
+                <img id="header-icon" src="images/Glyphicon.png">
+            </span>Jamcestry
+            <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-bed"></i>
+            <i class="fas fa-headphones"></i>
+        </h1>
+
+
+    </div>
+    <div id="content-container">
+        <div class="row">
+            <div class="col-md-3 offset-md-1">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="artistForm" placeholder="Enter an artist...">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" id="addArtist">Submit</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card col-md-8 offset-md-1">
+                <div id="artist-name">
+
+                </div>
+
+                <div id="pic">
+
+                </div>
+
+                <div id="input">
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <p id="toggle1" display: "none">
+                            <strong>Influences</strong>
+                        </p>
+                        <div id="influences">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p id="toggle2" style="color: green; display: none">
+                            <strong>Followers</strong>
+                        </p>
+                        <div id="followers">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="card col-md-2" id="trees">
+                <div id="tree1">
+                    <p id="select1">
+                        <strong>Tree Tracker</strong>
+                </div>
+                <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
+            </div>
+            <br>
+
+        </div>
+    </div>
+
+
+
+    <script>
+
+        var cardCreation = function (enter) {
+
+            var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
+
+            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
+
+            var napsterURL = "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" + enter + "&type=artist&limit=1";
+
+            $.ajax({
+                url: discogsURL,
+                method: "GET"
+            }).then(function (response) {
+
+                var id = response.results[0].resource_url;
+
+                $.ajax({
+                    url: id,
+                    method: "GET"
+                }).then(function (info) {
+
+                    var person = [
+                        "<b>Bio: </b>" + info.profile,
+                        "<b>Real Name: </b>" + info.realname,
+                        "<b>Webpage: </b>" + info.urls[0]];
+
+                    var personDiv = $("<div>");
+
+                    for (var i = 0; i < person.length; i++) {
+                        var artist = $("<div>");
+                        artist.html(person[i]);
+                        personDiv.append(artist);
+                        personDiv.append("<hr>");
+                    }
+                    $("#input").html(personDiv);
+                });
+
+            });
+
+
+
+            $.ajax({
+                url: lastfmURL,
+                method: "GET"
+            }).then(function (response) {
+
+                var artistName = response.artist.name
+
+                $("#artist-name").html("<h2>" + artistName + "<h2>");
+
+                var imageSrc = response.artist.image[response.artist.image.length - 1];
+
+                var imageElement = imageSrc[Object.keys(imageSrc)[0]];
+
+                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px'>");
+
+                $("#pic").html(image);
+            });
+
+            $.ajax({
+                url: napsterURL,
+                method: "GET"
+            }).then(function (response) {
+
+                var influencesIDs = [];
+
+                var followersIDs = [];
+
+                if (response.search.data.artists[0].links.influences !== undefined) {
+                    var ids = response.search.data.artists[0].links.influences.ids;
+                    for (var i = 0; i < ids.length; i++) {
+                        influencesIDs.push(response.search.data.artists[0].links.influences.ids[i]);
+                    }
+                }
+
+                if (response.search.data.artists[0].links.followers !== undefined) {
+                    var ids = response.search.data.artists[0].links.followers.ids;
+                    for (var i = 0; i < ids.length; i++) {
+                        followersIDs.push(response.search.data.artists[0].links.followers.ids[i]);
+                    }
+                }
+
+                influencesIDs.splice(4);
+
+                followersIDs.splice(4);
+
+                var infButtons = $("<div>");
+
+                var folButtons = $("<div>");
+
+                for (var i = 0; i < influencesIDs.length; i++) {
+
+                    var napsterInfluencesURL = "https://api.napster.com/v2.2/artists/" + influencesIDs[i] + "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
+
+                    $.ajax({
+                        url: napsterInfluencesURL,
+                        method: "GET"
+                    }).then(function (info) {
+                        infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(info.artists[0].name));
+                        if (i % 2 !== 0) {
+                            infButtons.append("<br>");
+                        };
+                    });
+
+                };
+
+                for (var i = 0; i < followersIDs.length; i++) {
+
+                    var napsterFollowersURL = "https://api.napster.com/v2.2/artists/" + followersIDs[i] + "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
+
+                    $.ajax({
+                        url: napsterFollowersURL,
+                        method: "GET"
+                    }).then(function (info) {
+                        folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(info.artists[0].name));
+                        if (i % 2 !== 0) {
+                            folButtons.append("<br>");
+                        };
+                    });
+                };
+
+                $("#influences").html(infButtons);
+
+                $("#followers").html(folButtons);
+
+
+
+            });
+
+        };
+
+        $(".card").hide();
+
+        $(document).bind('keypress', function (e) {
+            if (e.keyCode == 13) {
+                $('#addArtist').trigger('click');
+            }
+        });
+
+        $("#addArtist").on("click", function () {
+            $(".card").show();
+            event.preventDefault();
+            $("#toggle1").attr("style", "color: black; display: inline-block");
+            $("#toggle2").attr("style", "color: black; display: inline-block");
+            var userInput = $("#artistForm").val();
+            userInput = userInput.replace(" ", "+");
+            cardCreation(userInput);
+            $("#artistForm").val("");
+
+        });
+
+        var treeOneButtons = $("<div class='tr1'>");
+
+
+        var treeOne = true;
+
+        $(document).on("click", "#infl", function () {
+            var userInput = $(this).text()
+            cardCreation(userInput);
+            console.log($(this).attr("id", "infl"));
+            treeOneButtons.append($("<button id='infl' style='background-color: brown'>").html(userInput));
+            $("#tree1").append(treeOneButtons);
+
+        });
+
+        $(document).on("click", "#fol", function () {
+            var userInput = $(this).text()
+            cardCreation(userInput);
+            treeOneButtons.append($("<button style='background-color: green'>").html(userInput));
+            $("#tree1").append(treeOneButtons);
+
+        });
+
+        $(document).on("click", "#clear1", function () {
+            $(".tr1").empty();
+        });
+
+
+
+        $(document).on("click", "#select1", function () {
+
+            if (!treeOne) {
+                treeOne = true;
+                $("#tree1").attr("style", "background-color: lightgray")
+                $("#tree2").attr("style", "background-color: white")
+                console.log(treeOne);
+            }
+        });
+
+
+
+    </script>
+</body>
+
+</html>

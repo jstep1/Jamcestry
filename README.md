@@ -1,3 +1,4 @@
 # Jamcestry
-Colaborator:
+
+## Colaborators:
 -Anthonya Peterson
