@@ -2,7 +2,6 @@
 
 var cardCreation = function(enter) {
 
-<<<<<<< HEAD
     // Create dynamic URL links based on user input (search or click)
     
         var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
@@ -177,7 +176,7 @@ var cardCreation = function(enter) {
         cardCreation(userInput);
     
     });
-=======
+
 // Create dynamic URL links based on user input (search or click)
 
     var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
@@ -352,4 +351,3 @@ $(document).on("click", "#fol", function() {
     cardCreation(userInput);
 
 });
->>>>>>> 67b268ed3ec1b8bcfb995604fb2268bbdb216dd6

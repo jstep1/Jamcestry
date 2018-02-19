@@ -5,13 +5,14 @@
     padding: 15px 0 25px 160px;
     background-color: white;
     opacity: 0.6;
-    margin-bottom: 50px;
+    margin-bottom: 12px;
     color: black;
     -webkit-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     
 }
+
 
 .svg-inline--fa {
     float: right;
@@ -37,6 +38,8 @@ body {
     opacity: 0.9;
    
 }
+
+
 
 .search {
     padding-left: 0;
@@ -116,6 +119,9 @@ body .treeWhite, body .seedWhite {
     float: left;
 
 }
+#input {
+    flex-wrap: wrap;
+}
 
 body .inflTreeIcon, body .folTreeIcon {
     background-color: white;
@@ -127,3 +133,23 @@ body .inflTreeIcon:hover, body .folTreeIcon:hover {
     background-color: lightgray;
     border: none;
 }
+body .tr1 {
+    text-align: center;
+    
+}
+
+#icon {
+    
+    height: 200px;
+    width: auto;
+    align-content: center;
+    color: green;
+    text-shadow: green;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.icons {
+    text-align: center;
+
+}
+
