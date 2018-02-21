@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <script src="jsjamcestrynotes.js"></script>
 </head>
 
 <body>
@@ -26,6 +28,44 @@
 
     </div>
     <div id="content-container">
+        <div class="modal" tabindex="-1" role="dialog" id="invalid" style="opacity: 100%">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" >
+                        <h5 class="modal-title">WARNING!</h5>
+                        <button type="button" class="close" data-dismiss="#invalid" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Please enter a valid search.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="#invalid">Close</button>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+                <div class="modal" tabindex="-1" role="dialog" id="exampleModal" style="opacity: 100%">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" >
+                        <h5 class="modal-title">WARNING!</h5>
+                        <button type="button" class="close" data-dismiss="#exampleModal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <p>The information provided may not reflect your intended search. Please check your search parameters and try again.</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="#exampleModal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        </div>
+
         <div class="row">
             <div class="col-md-3 offset-md-1">
                 <form>
@@ -39,6 +79,7 @@
             </div>
         </div>
 
+
         <div class="row">
             <div class="card col-md-8 offset-md-1">
                 <div id="artist-name">
@@ -51,6 +92,13 @@
 
                 <div id="input">
 
+                </div>
+
+                <div class="row">
+
+                <div class="col-md-6 offset-md-3" id="player">
+                    
+                </div>
                 </div>
 
                 <div class="row">
@@ -87,23 +135,42 @@
         </div>
     </div>
 
-
-
     <script>
+
+        var player = "";
+
+        console.log(player);
+
+        var entryMod = function() {
+            $("#invalid").fadeIn(200);
+        };
+
+        var showMod = function() {
+            $("#exampleModal").fadeIn(200);
+            };
+
+        var hideMod = function() {
+            $("#exampleModal").fadeOut(200);
+            $("#invalid").fadeOut(200);
+        };
 
         var cardCreation = function (enter) {
 
-            var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
+            var discogsURL = "https://api.discogs.com/database/search?q=" + enter +
+                "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
 
-            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
+            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter +
+                "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
-            var napsterURL = "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" + enter + "&type=artist&limit=1";
+            var napsterURL =
+                "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" +
+                enter + "&type=artist&limit=1";
 
 
-$.ajax({
-          url: lastfmURL,
-          method: "GET"
-        }).then(function(response) {
+            $.ajax({
+                url: lastfmURL,
+                method: "GET"
+            }).then(function (response) {
 
                 var artistName = response.artist.name
 
@@ -113,7 +180,8 @@ $.ajax({
 
                 var imageElement = imageSrc[Object.keys(imageSrc)[0]];
 
-                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
+                var image = $("<img src='" + imageElement +
+                    "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
 
                 $("#pic").html(image);
 
@@ -121,53 +189,62 @@ $.ajax({
 
                 var personGenreString = response.artist.tags.tag;
 
-                for(var i=0; i<personGenreString.length; i++){
-                    
-                    if(i <= 0) {
-                        personGenre.push(personGenreString[i].name); 
-                    }
-                    else {
+                for (var i = 0; i < personGenreString.length; i++) {
+
+                    if (i <= 0) {
+                        personGenre.push(personGenreString[i].name);
+                    } else {
                         personGenre.push(" " + personGenreString[i].name);
-                    }}
+                    }
+                }
 
                 var similarArtists = [];
 
                 var similarArtistsString = response.artist.similar.artist;
 
-                for(var i=0; i<similarArtistsString.length; i++){
-                    
-                    if(i <= 0) {
-                        similarArtists.push("<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>"); 
+                for (var i = 0; i < similarArtistsString.length; i++) {
+
+                    if (i <= 0) {
+                        similarArtists.push("<a href='https://en.wikipedia.org/wiki/" +
+                            similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[
+                                i].name + "</a>");
+                    } else {
+                        similarArtists.push(" " + "<a href='https://en.wikipedia.org/wiki/" +
+                            similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[
+                                i].name + "</a>");
                     }
-                    else {
-                        similarArtists.push(" " + "<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>");
-                    }}
+                };
 
-                var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content + "</div>",
+                var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content,
+                    "<button type='button' class='btn btn-light bio' style='float: right'><span id='see'>See More...</span></button>",
                     "<b>Genre: </b>" + personGenre,
-                    "<b>Find Similar Artists: </b>" + similarArtists];
+                    "<b>Find Similar Artists: </b>" + similarArtists
+                ];
 
-                var seeMore = $("<div>");
-                seeMore.text("See more...");
-                $("#bio").append(seeMore);
+                console.log(person[0] === "<div class='bio' id='bio'><b>Bio: </b>");
+
+                if (person[0] === "<div class='bio' id='bio'><b>Bio: </b>" || person[2] === "<b>Genre: </b>") {
+
+                    showMod();
+
+                };
 
                 var personDiv = $("<div>");
 
-            for(var i=0; i<person.length; i++) {
-                var artist = $("<div>");
-                artist.html(person[i]);
-                personDiv.append(artist);
-                personDiv.append("<br>");
-            }
-            $("#pic").append(personDiv);
-        });
+                for (var i = 0; i < person.length; i++) {
+                    var artist = $("<div>");
+                    artist.html(person[i]);
+                    personDiv.append(artist);
+                    personDiv.append("<br>");
+                }
+                $("#pic").append(personDiv);
 
-
+            });
 
 
 $.ajax({
-                url: napsterURL,
-                method: "GET"
+    url: napsterURL,
+    method: "GET"
             }).then(function (response) {
 
                 var influencesIDs = [];
@@ -198,13 +275,15 @@ $.ajax({
 
                 for (var i = 0; i < influencesIDs.length; i++) {
 
-                    var napsterInfluencesURL = "https://api.napster.com/v2.2/artists/" + influencesIDs[i] + "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
+                    var napsterInfluencesURL = "https://api.napster.com/v2.2/artists/" + influencesIDs[i] +
+                        "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
 
                     $.ajax({
                         url: napsterInfluencesURL,
                         method: "GET"
                     }).then(function (info) {
-                        infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(info.artists[0].name));
+                        infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(
+                            info.artists[0].name));
                         if (i % 2 !== 0) {
                             infButtons.append("<br>");
                         };
@@ -214,13 +293,15 @@ $.ajax({
 
                 for (var i = 0; i < followersIDs.length; i++) {
 
-                    var napsterFollowersURL = "https://api.napster.com/v2.2/artists/" + followersIDs[i] + "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
+                    var napsterFollowersURL = "https://api.napster.com/v2.2/artists/" + followersIDs[i] +
+                        "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
 
                     $.ajax({
                         url: napsterFollowersURL,
                         method: "GET"
                     }).then(function (info) {
-                        folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(info.artists[0].name));
+                        folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(
+                            info.artists[0].name));
                         if (i % 2 !== 0) {
                             folButtons.append("<br>");
                         };
@@ -230,8 +311,6 @@ $.ajax({
                 $("#influences").html(infButtons);
 
                 $("#followers").html(folButtons);
-
-
 
             });
 
@@ -246,14 +325,21 @@ $.ajax({
         });
 
         $("#addArtist").on("click", function () {
+            if($("#artistForm").val() !== "") {
             $(".card").show();
             event.preventDefault();
             $("#toggle1").attr("style", "color: black; display: inline-block");
             $("#toggle2").attr("style", "color: black; display: inline-block");
             var userInput = $("#artistForm").val();
             userInput = userInput.replace(" ", "+");
+            player = userInput;
+            $("#player").html("<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" + player + "' frameborder='0'></iframe>");
             cardCreation(userInput);
             $("#artistForm").val("");
+        }
+            else {
+                entryMod();
+            }
 
         });
 
@@ -263,17 +349,25 @@ $.ajax({
         var treeOne = true;
 
         $(document).on("click", "#infl", function () {
-            var userInput = $(this).text()
+            var userInput = $(this).text();
+            userInput = userInput.replace(" ", "+");
+            player = userInput;
+            $("#player").html("<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" + player + "' frameborder='0'></iframe>");
             cardCreation(userInput);
-            treeOneButtons.append($("<button id='infl' style='background-color: brown'>").html(userInput));
+            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(userInput));
             $("#tree1").append(treeOneButtons);
 
         });
 
         $(document).on("click", "#fol", function () {
-            var userInput = $(this).text()
+            var userInput = $(this).text();
+            userInput = userInput.replace(" ", "+");
+            player = userInput;
+            $("#player").html("<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" + player + "' frameborder='0'></iframe>");
             cardCreation(userInput);
-            treeOneButtons.append($("<button style='background-color: green'>").html(userInput));
+            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(userInput));
+            cardCreation(userInput);
+            treeOneButtons.append($("<button style='background-color: green; width='100%''>").html(userInput));
             $("#tree1").append(treeOneButtons);
 
         });
@@ -281,7 +375,6 @@ $.ajax({
         $(document).on("click", "#clear1", function () {
             $(".tr1").empty();
         });
-
 
 
         $(document).on("click", "#select1", function () {
@@ -294,22 +387,24 @@ $.ajax({
             }
         });
 
-var expand = false;
+        var expand = false;
 
-$(document).on("click", ".bio", function() {
-    if(!expand){
-    $(this).removeAttr("id", "bio");
-    expand = true;
-    }
-    else {
-    $(this).attr("id", "bio");
-    expand = false;
-    }
-});
+        $(document).on("click", ".bio", function () {
+            if (!expand) {
+                $(".bio").removeAttr("id", "bio");
+                $("#see").text("See Less...");
+                expand = true;
+            } else {
+                $(".bio").attr("id", "bio");
+                $("#see").text("See More...");
+                expand = false;
+            }
+        });
 
-
+        $(document).on("click", ".close", hideMod);
 
     </script>
+
 </body>
 
 </html>
