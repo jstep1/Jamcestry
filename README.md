@@ -3,7 +3,7 @@ Welcome to Jamcestry - an application built for music fanatics everywhere.
 
 https://jstep1.github.io/Jamcestry/index.html
 
-Find your favorite artists...
+Find your favorite artists and...
 
 - Read about their bio, genres, and similar artists
 - Check out their music, interviews, and more
