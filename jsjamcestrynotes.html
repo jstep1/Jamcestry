@@ -11,7 +11,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
-    <script src="jsjamcestrynotes.js"></script>
+    <!-- <script src="jsjamcestrynotes.js"></script> -->
 </head>
 
 <body>
@@ -24,132 +24,150 @@
             <i class="fas fa-bed"></i>
             <i class="fas fa-headphones"></i>
         </h1>
+        <div id='artists'></div>
 
 
     </div>
     <div id="content-container">
         <div class="modal" tabindex="-1" role="dialog" id="invalid" style="opacity: 100%">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
                         <h5 class="modal-title">WARNING!</h5>
                         <button type="button" class="close" data-dismiss="#invalid" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                      </div>
-                      <div class="modal-body">
-                        <p>Please enter a valid search.</p>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary close" data-dismiss="#invalid">Close</button>
-                      </div>
                     </div>
-                  </div>
+                    <div class="modal-body">
+                        <p>Please enter a valid search.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="#invalid">Close</button>
+                    </div>
+                </div>
             </div>
-                <div class="modal" tabindex="-1" role="dialog" id="exampleModal" style="opacity: 100%">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header" >
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="exampleModal" style="opacity: 100%">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
                         <h5 class="modal-title">WARNING!</h5>
                         <button type="button" class="close" data-dismiss="#exampleModal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                      </div>
-                      <div class="modal-body">
-                        <p>The information provided may not reflect your intended search. Please check your search parameters and try again.</p>
-                      </div>
-                      <div class="modal-footer">
+                    </div>
+                    <div class="modal-body">
+                        <p>The information provided may not reflect your intended search. Please check your search parameters
+                            and try again.</p>
+                    </div>
+                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary close" data-dismiss="#exampleModal">Close</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3 offset-md-1">
-                <form>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="artistForm" placeholder="Enter an artist...">
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-2">
-                <button type="button" class="btn btn-primary" id="addArtist">Submit</button>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="card col-md-8 offset-md-1">
-                <div id="artist-name">
-
-                </div>
-
-                <div id="pic">
-
-                </div>
-
-                <div id="input">
-
-                </div>
-
-                <div class="row">
-
-                <div class="col-md-6 offset-md-3" id="player">
-                    
-                </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <p id="toggle1" display: "none">
-                            <strong>Influences</strong>
-                        </p>
-                        <div id="influences">
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <p id="toggle2" style="color: green; display: none">
-                            <strong>Followers</strong>
-                        </p>
-                        <div id="followers">
-                        </div>
                     </div>
                 </div>
             </div>
-
-
-
-            <div class="card col-md-2" id="trees">
-                <div id="tree1">
-                    <p id="select1">
-                        <strong>Tree Tracker</strong>
-                </div>
-                <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
-            </div>
-            <br>
-
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-3 offset-md-1">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="artistForm" placeholder="Enter an artist...">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" id="addArtist">Submit</button>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="card col-md-8 offset-md-1">
+            <div id="artist-name">
+            
+            </div>
+
+            <div id="searched">
+
+            </div>
+
+            <div id="pic">
+
+            </div>
+
+            <div id="input">
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 offset-md-3" id="player">
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <p id="toggle1" display: "none">
+                        <strong>Influences</strong>
+                    </p>
+                    <div id="influences">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <p id="toggle2" style="color: green; display: none">
+                        <strong>Followers</strong>
+                    </p>
+                    <div id="followers">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="card col-md-2" id="trees">
+            <div id="tree1">
+                <p id="select1">
+                    <strong>Tree Tracker</strong>
+            </div>
+            <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
+        </div>
+        <br>
+
+    </div>
+    </div>
+
     <script>
+        var config = {
+    apiKey: "AIzaSyDrH9EgIqbFUdTJelsxfVYi321-aPBxUVU",
+    authDomain: "jamcestry-51487.firebaseapp.com",
+    databaseURL: "https://jamcestry-51487.firebaseio.com",
+    projectId: "jamcestry-51487",
+    storageBucket: "jamcestry-51487.appspot.com",
+    messagingSenderId: "1078137461626"
+  };
+
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+var artistRef = database.ref("/artists");
 
         var player = "";
 
-        console.log(player);
-
-        var entryMod = function() {
+        var entryMod = function () {
             $("#invalid").fadeIn(200);
         };
 
-        var showMod = function() {
+        var showMod = function () {
             $("#exampleModal").fadeIn(200);
-            };
+        };
 
-        var hideMod = function() {
+        var hideMod = function () {
             $("#exampleModal").fadeOut(200);
             $("#invalid").fadeOut(200);
         };
@@ -221,9 +239,9 @@
                     "<b>Find Similar Artists: </b>" + similarArtists
                 ];
 
-                console.log(person[0] === "<div class='bio' id='bio'><b>Bio: </b>");
 
-                if (person[0] === "<div class='bio' id='bio'><b>Bio: </b>" || person[2] === "<b>Genre: </b>") {
+                if (person[0] === "<div class='bio' id='bio'><b>Bio: </b>" || person[2] ===
+                    "<b>Genre: </b>") {
 
                     showMod();
 
@@ -242,9 +260,9 @@
             });
 
 
-$.ajax({
-    url: napsterURL,
-    method: "GET"
+            $.ajax({
+                url: napsterURL,
+                method: "GET"
             }).then(function (response) {
 
                 var influencesIDs = [];
@@ -325,19 +343,33 @@ $.ajax({
         });
 
         $("#addArtist").on("click", function () {
-            if($("#artistForm").val() !== "") {
-            $(".card").show();
-            event.preventDefault();
-            $("#toggle1").attr("style", "color: black; display: inline-block");
-            $("#toggle2").attr("style", "color: black; display: inline-block");
-            var userInput = $("#artistForm").val();
-            userInput = userInput.replace(" ", "+");
-            player = userInput;
-            $("#player").html("<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" + player + "' frameborder='0'></iframe>");
-            cardCreation(userInput);
-            $("#artistForm").val("");
-        }
-            else {
+            if ($("#artistForm").val() !== "") {
+                $(".card").show();
+                event.preventDefault();
+                $("#toggle1").attr("style", "color: black; display: inline-block");
+                $("#toggle2").attr("style", "color: black; display: inline-block");
+                var userInput = $("#artistForm").val();
+                userInput = userInput.replace(" ", "+");
+                player = userInput;
+                $("#player").html(
+                    "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+                    player + "' frameborder='0'></iframe>");
+                cardCreation(userInput);
+                console.log(player);
+
+                database.ref("/" + player + "/views").on("value", function(snapshot) {
+                var viewed = snapshot.val();
+                viewed++;
+                console.log(viewed);
+                $("#searched").text("Searched " + viewed + " times")
+                }, function(errorObject) {
+                console.log("The read failed: " + errorObject.code);
+                });
+
+
+                $("#artistForm").val("");
+
+            } else {
                 entryMod();
             }
 
@@ -352,9 +384,12 @@ $.ajax({
             var userInput = $(this).text();
             userInput = userInput.replace(" ", "+");
             player = userInput;
-            $("#player").html("<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" + player + "' frameborder='0'></iframe>");
+            $("#player").html(
+                "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+                player + "' frameborder='0'></iframe>");
             cardCreation(userInput);
-            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(userInput));
+            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(
+                userInput));
             $("#tree1").append(treeOneButtons);
 
         });
@@ -363,9 +398,12 @@ $.ajax({
             var userInput = $(this).text();
             userInput = userInput.replace(" ", "+");
             player = userInput;
-            $("#player").html("<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" + player + "' frameborder='0'></iframe>");
+            $("#player").html(
+                "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+                player + "' frameborder='0'></iframe>");
             cardCreation(userInput);
-            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(userInput));
+            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(
+                userInput));
             cardCreation(userInput);
             treeOneButtons.append($("<button style='background-color: green; width='100%''>").html(userInput));
             $("#tree1").append(treeOneButtons);
@@ -402,7 +440,6 @@ $.ajax({
         });
 
         $(document).on("click", ".close", hideMod);
-
     </script>
 
 </body>
