@@ -196,6 +196,7 @@ $("#searchBar").hide();
 $("#page-header").hide();
 $(".footer").hide();
 
+
 // Assign keypress to Enter key
 
 $(document).bind('keypress', function (e) {
@@ -221,12 +222,13 @@ $("#addArtistOpener").on("click", function () {
     $(treeOneButtons).html("<hr>" + userInputOpener + "<hr>");
     $("#tree1").append(treeOneButtons);
     $(".icons").promise().done(function () {
-        $(".footer").fadeIn(3000);
+        $(".footer").fadeIn(2000);
         $("#page-header").fadeIn(500);
         $("#searchBar").fadeIn(500);
         $(".card").fadeIn(1000);
         $("#background-blur").fadeOut(500);
         $("#background-clean").fadeIn(500);
+        $("#wat").hide()
     });
 });
     
