@@ -317,14 +317,10 @@ body .inflTreeIcon:hover, body .folTreeIcon:hover {
  
   /* Footer icons */
   #napster, #lastfm, #youtube, #insta, #twitter {
-      height:29px;
+      height:35px;
       width:auto;
       padding-left:10px;
       padding-right:10px;
   }
  
-  /* Napster Icon needed specific styling */
-  #napster {
-      padding-right:0px;
-      padding-left: 3px;
-  }
+ 
