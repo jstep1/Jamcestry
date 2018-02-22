@@ -1,275 +1,447 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Jamcestry (WORKING)</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<head>
+    <title>Jamcestry (WORKING)</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amiri" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+    <!-- <script src="jsjamcestrynotes.js"></script> -->
 </head>
+
 <body>
-    <div class="row">
-        <div class="col-md-4">
-        <form>
-            <div class="form-group">
-                <input type="text" class="form-control" id="artistForm" placeholder="Enter an artist...">
+    <div id="page-header">
+        <h1>
+            <span>
+                <img id="header-icon" src="images/Glyphicon.png">
+            </span>Jamcestry
+            <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-bed"></i>
+            <i class="fas fa-headphones"></i>
+        </h1>
+        <div id='artists'></div>
+
+
+    </div>
+    <div id="content-container">
+        <div class="modal" tabindex="-1" role="dialog" id="invalid" style="opacity: 100%">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">WARNING!</h5>
+                        <button type="button" class="close" data-dismiss="#invalid" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please enter a valid search.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="#invalid">Close</button>
+                    </div>
+                </div>
             </div>
-        </form>
         </div>
-        <div class="col-md-2">
-        <button type="button" class="btn btn-primary" id="addArtist">Submit</button>
+        <div class="modal" tabindex="-1" role="dialog" id="exampleModal" style="opacity: 100%">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">WARNING!</h5>
+                        <button type="button" class="close" data-dismiss="#exampleModal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>The information provided may not reflect your intended search. Please check your search parameters
+                            and try again.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="#exampleModal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
 
-<div class="row">
-    <div class="card col-md-4">
-    	   <div id="pic">
+    <div class="row">
+        <div class="col-md-3 offset-md-1">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="artistForm" placeholder="Enter an artist...">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" id="addArtist">Submit</button>
+        </div>
+    </div>
 
-    	   </div>
 
-    	   <div id="input">
+    <div class="row">
+        <div class="card col-md-8 offset-md-1">
+            <div id="artist-name">
+            
+            </div>
 
-    	   </div>
+            <div id="searched">
+
+            </div>
+
+            <div id="pic">
+
+            </div>
+
+            <div id="input">
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 offset-md-3" id="player">
+
+                </div>
+            </div>
 
             <div class="row">
 
                 <div class="col-md-6">
-                    <p id="toggle1" display: none"><strong>Influences</strong></p>
+                    <p id="toggle1" display: "none">
+                        <strong>Influences</strong>
+                    </p>
                     <div id="influences">
                     </div>
                 </div>
-                    
+
                 <div class="col-md-6">
-                    <p id="toggle2" style="color: green; display: none"><strong>Followers</strong></p>
+                    <p id="toggle2" style="color: green; display: none">
+                        <strong>Followers</strong>
+                    </p>
                     <div id="followers">
                     </div>
                 </div>
+            </div>
         </div>
+
+
+
+        <div class="card col-md-2" id="trees">
+            <div id="tree1">
+                <p id="select1">
+                    <strong>Tree Tracker</strong>
+            </div>
+            <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
+        </div>
+        <br>
+
+    </div>
     </div>
 
-    <div class="col-md-2">
-    </div>
+    <script>
+        var config = {
+    apiKey: "AIzaSyDrH9EgIqbFUdTJelsxfVYi321-aPBxUVU",
+    authDomain: "jamcestry-51487.firebaseapp.com",
+    databaseURL: "https://jamcestry-51487.firebaseio.com",
+    projectId: "jamcestry-51487",
+    storageBucket: "jamcestry-51487.appspot.com",
+    messagingSenderId: "1078137461626"
+  };
 
-    <div class="card col-md-2" id="trees">
-           <div id="tree1">
-                <p id="select1"><strong>Jamces-Tree 1</strong></p>
-           </div>
-           <button type="button" class="btn btn-danger" id="clear1" style="margin-top:5px">Clear Tree</button>
-    </div><br>
+firebase.initializeApp(config);
 
-    <div class="card col-md-2" id="trees">
-           <div id="tree2">
-                <p id="select2"><strong>Jamces-Tree 2</strong></p>
-           </div>
-           <button type="button" class="btn btn-danger" id="clear2" style="margin-top:5px">Clear Tree</button>
-          
-    </div><br>
-    
-</div>
+var database = firebase.database();
 
-	
+var artistRef = database.ref("/artists");
 
-<script>
+        var player = "";
 
-var cardCreation = function(enter) {
+        var entryMod = function () {
+            $("#invalid").fadeIn(200);
+        };
 
-var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
+        var showMod = function () {
+            $("#exampleModal").fadeIn(200);
+        };
 
-var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
+        var hideMod = function () {
+            $("#exampleModal").fadeOut(200);
+            $("#invalid").fadeOut(200);
+        };
 
-var napsterURL = "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" + enter + "&type=artist&limit=1";
+        var cardCreation = function (enter) {
 
-$.ajax({
-          url: discogsURL,
-          method: "GET"
-        }).then(function(response) {
+            var discogsURL = "https://api.discogs.com/database/search?q=" + enter +
+                "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
 
-        	var id = response.results[0].resource_url;
+            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter +
+                "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
-        	$.ajax({
-        		url: id,
-        		method: "GET"
-        	}).then(function(info) {
+            var napsterURL =
+                "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" +
+                enter + "&type=artist&limit=1";
 
-        		var person = ["<b>Name: </b>" + info.name,
-        			"<b>Bio: </b>" + info.profile,
-        			"<b>Real Name: </b>" + info.realname,
-        			"<b>Webpage: </b>" + info.urls[0]];
+
+            $.ajax({
+                url: lastfmURL,
+                method: "GET"
+            }).then(function (response) {
+
+                var artistName = response.artist.name
+
+                $("#artist-name").html("<h2>" + artistName + "<h2>");
+
+                var imageSrc = response.artist.image[response.artist.image.length - 1];
+
+                var imageElement = imageSrc[Object.keys(imageSrc)[0]];
+
+                var image = $("<img src='" + imageElement +
+                    "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
+
+                $("#pic").html(image);
+
+                var personGenre = [];
+
+                var personGenreString = response.artist.tags.tag;
+
+                for (var i = 0; i < personGenreString.length; i++) {
+
+                    if (i <= 0) {
+                        personGenre.push(personGenreString[i].name);
+                    } else {
+                        personGenre.push(" " + personGenreString[i].name);
+                    }
+                }
+
+                var similarArtists = [];
+
+                var similarArtistsString = response.artist.similar.artist;
+
+                for (var i = 0; i < similarArtistsString.length; i++) {
+
+                    if (i <= 0) {
+                        similarArtists.push("<a href='https://en.wikipedia.org/wiki/" +
+                            similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[
+                                i].name + "</a>");
+                    } else {
+                        similarArtists.push(" " + "<a href='https://en.wikipedia.org/wiki/" +
+                            similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[
+                                i].name + "</a>");
+                    }
+                };
+
+                var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content,
+                    "<button type='button' class='btn btn-light bio' style='float: right'><span id='see'>See More...</span></button>",
+                    "<b>Genre: </b>" + personGenre,
+                    "<b>Find Similar Artists: </b>" + similarArtists
+                ];
+
+
+                if (person[0] === "<div class='bio' id='bio'><b>Bio: </b>" || person[2] ===
+                    "<b>Genre: </b>") {
+
+                    showMod();
+
+                };
 
                 var personDiv = $("<div>");
 
-        	for(var i=0; i<person.length; i++) {
-        		var artist = $("<div>");
-        		artist.html(person[i]);
-        		personDiv.append(artist);
-                personDiv.append("<br>");
-        	}
-            $("#input").html(personDiv);
-        });
+                for (var i = 0; i < person.length; i++) {
+                    var artist = $("<div>");
+                    artist.html(person[i]);
+                    personDiv.append(artist);
+                    personDiv.append("<br>");
+                }
+                $("#pic").append(personDiv);
 
-	});
+            });
 
-
-
-$.ajax({
-          url: lastfmURL,
-          method: "GET"
-        }).then(function(response) {
-
-            var imageSrc = response.artist.image[response.artist.image.length - 1];
-
-            var imageElement = imageSrc[Object.keys(imageSrc)[0]];
-        	
-        	var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px'>");
-
-        	$("#pic").html(image);
-        });
-
-$.ajax({
-          url: napsterURL,
-          method: "GET"
-        }).then(function(response) {
-
-        var influencesIDs = [];
-
-        var followersIDs = [];
-
-        if(response.search.data.artists[0].links.influences !== undefined) {
-            var ids = response.search.data.artists[0].links.influences.ids;
-            for(var i=0; i < ids.length; i++) {
-            influencesIDs.push(response.search.data.artists[0].links.influences.ids[i]);
-            }
-        }
-
-        if(response.search.data.artists[0].links.followers !== undefined) {
-            var ids = response.search.data.artists[0].links.followers.ids;
-            for(var i=0; i < ids.length; i++) {
-            followersIDs.push(response.search.data.artists[0].links.followers.ids[i]);
-            }
-        }
-
-        influencesIDs.splice(4);
-
-        followersIDs.splice(4);
-
-        var infButtons = $("<div>");
-
-        var folButtons = $("<div>");
-
-        for(var i=0; i < influencesIDs.length; i++){
-
-            var napsterInfluencesURL = "https://api.napster.com/v2.2/artists/" + influencesIDs[i] + "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
 
             $.ajax({
-                url: napsterInfluencesURL,
+                url: napsterURL,
                 method: "GET"
-            }).then(function(info) {
-                infButtons.append($("<button id='infl'>").html(info.artists[0].name));
-                    if(i % 2 !== 0) {
-                    infButtons.append("<br>");
+            }).then(function (response) {
+
+                var influencesIDs = [];
+
+                var followersIDs = [];
+
+                if (response.search.data.artists[0].links.influences !== undefined) {
+                    var ids = response.search.data.artists[0].links.influences.ids;
+                    for (var i = 0; i < ids.length; i++) {
+                        influencesIDs.push(response.search.data.artists[0].links.influences.ids[i]);
+                    }
+                }
+
+                if (response.search.data.artists[0].links.followers !== undefined) {
+                    var ids = response.search.data.artists[0].links.followers.ids;
+                    for (var i = 0; i < ids.length; i++) {
+                        followersIDs.push(response.search.data.artists[0].links.followers.ids[i]);
+                    }
+                }
+
+                influencesIDs.splice(4);
+
+                followersIDs.splice(4);
+
+                var infButtons = $("<div>");
+
+                var folButtons = $("<div>");
+
+                for (var i = 0; i < influencesIDs.length; i++) {
+
+                    var napsterInfluencesURL = "https://api.napster.com/v2.2/artists/" + influencesIDs[i] +
+                        "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
+
+                    $.ajax({
+                        url: napsterInfluencesURL,
+                        method: "GET"
+                    }).then(function (info) {
+                        infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(
+                            info.artists[0].name));
+                        if (i % 2 !== 0) {
+                            infButtons.append("<br>");
                         };
                     });
 
-        };
+                };
 
-        for(var i=0; i < followersIDs.length; i++){
+                for (var i = 0; i < followersIDs.length; i++) {
 
-            var napsterFollowersURL = "https://api.napster.com/v2.2/artists/" + followersIDs[i] + "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
+                    var napsterFollowersURL = "https://api.napster.com/v2.2/artists/" + followersIDs[i] +
+                        "?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm";
 
-            $.ajax({
-                url: napsterFollowersURL,
-                method: "GET"
-            }).then(function(info) {
-                folButtons.append($("<button id='fol'>").html(info.artists[0].name));
-                    if(i % 2 !== 0) {
-                    folButtons.append("<br>");
+                    $.ajax({
+                        url: napsterFollowersURL,
+                        method: "GET"
+                    }).then(function (info) {
+                        folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(
+                            info.artists[0].name));
+                        if (i % 2 !== 0) {
+                            folButtons.append("<br>");
                         };
                     });
+                };
+
+                $("#influences").html(infButtons);
+
+                $("#followers").html(folButtons);
+
+            });
+
         };
 
-        $("#influences").html(infButtons);
+        $(".card").hide();
 
-        $("#followers").html(folButtons);
+        $(document).bind('keypress', function (e) {
+            if (e.keyCode == 13) {
+                $('#addArtist').trigger('click');
+            }
+        });
 
-        
+        $("#addArtist").on("click", function () {
+            if ($("#artistForm").val() !== "") {
+                $(".card").show();
+                event.preventDefault();
+                $("#toggle1").attr("style", "color: black; display: inline-block");
+                $("#toggle2").attr("style", "color: black; display: inline-block");
+                var userInput = $("#artistForm").val();
+                userInput = userInput.replace(" ", "+");
+                player = userInput;
+                $("#player").html(
+                    "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+                    player + "' frameborder='0'></iframe>");
+                cardCreation(userInput);
+                console.log(player);
+
+                database.ref("/" + player + "/views").on("value", function(snapshot) {
+                var viewed = snapshot.val();
+                viewed++;
+                console.log(viewed);
+                $("#searched").text("Searched " + viewed + " times")
+                }, function(errorObject) {
+                console.log("The read failed: " + errorObject.code);
+                });
+
+
+                $("#artistForm").val("");
+
+            } else {
+                entryMod();
+            }
 
         });
-  
-};
 
-$("#addArtist").on("click", function() {
-    event.preventDefault();
-    $("#toggle1").attr("style", "color: brown; display: inline-block");
-    $("#toggle2").attr("style", "color: green; display: inline-block");
-    var userInput = $("#artistForm").val();
-    userInput = userInput.replace(" ","+");
-    cardCreation(userInput);
-    $("#artistForm").val("");
+        var treeOneButtons = $("<div class='tr1'>");
 
-});
 
-var treeOneButtons = $("<div class='tr1'>");
-var treeTwoButtons = $("<div class='tr2'>");
+        var treeOne = true;
 
-var treeOne = true;
+        $(document).on("click", "#infl", function () {
+            var userInput = $(this).text();
+            userInput = userInput.replace(" ", "+");
+            player = userInput;
+            $("#player").html(
+                "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+                player + "' frameborder='0'></iframe>");
+            cardCreation(userInput);
+            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(
+                userInput));
+            $("#tree1").append(treeOneButtons);
 
-$(document).on("click", "#infl", function() {
-    var userInput = $(this).text()
-    cardCreation(userInput);
-    console.log($(this).attr("id", "infl"));
-    if(treeOne) {
-    treeOneButtons.append($("<button id='infl' style='background-color: brown; width: 100%''>").html(userInput));
-    $("#tree1").append(treeOneButtons);
-    }
-    else {
-    treeTwoButtons.append($("<button id='infl' style='background-color: brown; width: 100%''>").html(userInput));
-    $("#tree2").append(treeTwoButtons);
-    }
-});
+        });
 
-$(document).on("click", "#fol", function() {
-    var userInput = $(this).text()
-    cardCreation(userInput);
-    if(treeOne){
-    treeOneButtons.append($("<button style='background-color: green; width: 100%'>").html(userInput));
-    $("#tree1").append(treeOneButtons);
-    }
-    else {
-    treeTwoButtons.append($("<button style='background-color: green; width: 100%''>").html(userInput));
-    $("#tree2").append(treeTwoButtons);
-    }
-});
+        $(document).on("click", "#fol", function () {
+            var userInput = $(this).text();
+            userInput = userInput.replace(" ", "+");
+            player = userInput;
+            $("#player").html(
+                "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+                player + "' frameborder='0'></iframe>");
+            cardCreation(userInput);
+            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(
+                userInput));
+            cardCreation(userInput);
+            treeOneButtons.append($("<button style='background-color: green; width='100%''>").html(userInput));
+            $("#tree1").append(treeOneButtons);
 
-$(document).on("click", "#clear1", function() {
-    $(".tr1").empty();
-});
+        });
 
-$(document).on("click", "#clear2", function() {
-    $(".tr2").empty();
-});
+        $(document).on("click", "#clear1", function () {
+            $(".tr1").empty();
+        });
 
-$(document).on("click", "#select1", function() {
 
-    if(!treeOne) {
-        treeOne = true;
-        $("#tree1").attr("style", "background-color: lightgray")
-        $("#tree2").attr("style", "background-color: white")
-        console.log(treeOne);
-    }
-});
+        $(document).on("click", "#select1", function () {
 
-$(document).on("click", "#select2", function() {
+            if (!treeOne) {
+                treeOne = true;
+                $("#tree1").attr("style", "background-color: lightgray")
+                $("#tree2").attr("style", "background-color: white")
+                console.log(treeOne);
+            }
+        });
 
-    
-    if(treeOne) {
-        treeOne = false;
-        $("#tree2").attr("style", "background-color: lightgray")
-        $("#tree1").attr("style", "background-color: white")
-        console.log(treeOne);
-    }
-});
-      
-</script>
+        var expand = false;
+
+        $(document).on("click", ".bio", function () {
+            if (!expand) {
+                $(".bio").removeAttr("id", "bio");
+                $("#see").text("See Less...");
+                expand = true;
+            } else {
+                $(".bio").attr("id", "bio");
+                $("#see").text("See More...");
+                expand = false;
+            }
+        });
+
+        $(document).on("click", ".close", hideMod);
+    </script>
+
 </body>
-</html>
 
+</html>

@@ -5,14 +5,18 @@
     <title>Jamcestry (WORKING)</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Amiri" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Amiri|Bellefair|Pacifico|Josefin+Sans" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="jquery-ui.css" rel="stylesheet">
 </head>
+<div id="background-blur"></div>
+<div id="background-clean"></div>
 
 <body>
+
     <div id="page-header">
         <h1>
             <span>
@@ -26,8 +30,8 @@
 
     </div>
     <div id="content-container">
-        <div id="moveBar"></div>
-        
+
+
         <div class="row" id="searchBar">
             <div class="col-md-3 offset-md-1">
                 <form>
@@ -42,7 +46,7 @@
         </div>
 
         <div class="row">
-            <div class="card col-md-8 offset-md-1">
+            <div class="card col-md-7 offset-md-1">
                 <div id="artist-name">
 
                 </div>
@@ -58,7 +62,7 @@
                 <div class="row">
 
                     <div class="col-md-6">
-                        <p id="toggle1" display: "none">
+                        <p id="toggle1">
                             <strong>Influences</strong>
                         </p>
                         <div id="influences">
@@ -66,7 +70,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <p id="toggle2" style="color: green; display: none">
+                        <p id="toggle2">
                             <strong>Followers</strong>
                         </p>
                         <div id="followers">
@@ -77,10 +81,23 @@
 
 
 
-            <div class="card col-md-2" id="trees">
+            <div class="card col-md-2 offset-md-1" id="trees">
                 <div id="tree1">
                     <p id="select1">
-                        <strong>Tree Tracker</strong>
+                        <span>
+                            <strong>Tree Tracker</strong>
+                        </span>
+                        <span>
+                            <a>
+                                <a id="tooltip" href="#" title="">
+                                        <img src="images/treeInstructionsIcon.png" class="treeInstructions rounded" title="">
+                                </a>
+                            </a>
+                        </span>
+                        <div id="primaryArtist">
+
+                        </div>
+                    </p>
                 </div>
                 <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
             </div>
@@ -88,54 +105,90 @@
 
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="icons">
-        <img src="images/seeds.png" id="icon"><img src="images/phones.png" id="icon"><img src="images/plant.png" id="icon">
-        </div>
+        <div>
+            <h1 id="openingHeader">Jamcestry</h1>
+            <div class="row">
+                <div class="col-md-2 offset-md-3">
+                    <img src="images/searchIcon.png" id="icon" style="height: 80px; width: auto">
+                    <p class="instructions">Search.</p>
+                </div>
+                <div class="col-md-2">
+                    <img src="images/musicIcon.png" id="icon" style="height: 80px; width: auto">
+                    <p class="instructions">Learn.</p>
+                </div>
+                <div class="col-md-2">
+                    <img src="images/buildTreeIcon.png" id="icon" style="height: 80px; width: auto">
+                    <p class="instructions">Build.</p>
+                </div>
+            </div>
 
+        </div>
+        <div class="row">
+            <div id="searchBarOpener" class="col-md-2 offset-md-5">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="artistFormOpener" placeholder="Enter an artist...">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+
+<<<<<<< HEAD
         
           
+=======
+            <button type="button" class="btn btn-primary" id="addArtistOpener">Submit</button>
+>>>>>>> 71d7875a9d50e76449b6a9674256c73be1c3a1e9
+
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+    <div class="footer">
+
+        <p class="footp">
+            <strong>Powered by </strong>
+            <img src="images/napster.png" id="napster">
+            <img src="images/lastfm.png" id="lastfm">
+            <img src="images/spotify.png" id="spotify">
+        </p>
+
+        <p class="footp">
+            <strong>Connect with us! </strong>
+            <a href="https://www.instagram.com" target="_blank">
+                <img src="images/insta.png" id="insta">
+            </a>
+            <a href="https://www.twitter.com/jamcestry" target="_blank">
+                <img src="images/twitter.png" id="twitter">
+            </a>
+            <p class="footp">
+                <strong>&copy; 2018 Jamcestry</strong>
+            </p>
+
+
+    </div>
+
 
 
     <script>
+
+
 
         var cardCreation = function (enter) {
 
             var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
 
-            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
+            var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
             var napsterURL = "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" + enter + "&type=artist&limit=1";
-
-            $.ajax({
-                url: discogsURL,
-                method: "GET"
-            }).then(function (response) {
-
-                var id = response.results[0].resource_url;
-
-                $.ajax({
-                    url: id,
-                    method: "GET"
-                }).then(function (info) {
-
-                    var person = [
-                        "<b>Bio: </b>" + info.profile,
-                        "<b>Real Name: </b>" + info.realname,
-                        "<b>Webpage: </b>" + info.urls[0]];
-
-                    var personDiv = $("<div>");
-
-                    for (var i = 0; i < person.length; i++) {
-                        var artist = $("<div>");
-                        artist.html(person[i]);
-                        personDiv.append(artist);
-                        personDiv.append("<hr>");
-                    }
-                    $("#input").html(personDiv);
-                });
-
-            });
-
 
 
             $.ajax({
@@ -151,10 +204,57 @@
 
                 var imageElement = imageSrc[Object.keys(imageSrc)[0]];
 
-                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px'>");
+                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px' class='artistImage'>");
 
                 $("#pic").html(image);
+
+                var personGenre = [];
+                var personGenreString = response.artist.tags.tag;
+                for (var i = 0; i < personGenreString.length; i++) {
+
+                    if (i <= 0) {
+                        personGenre.push(personGenreString[i].name);
+                    }
+                    else {
+                        personGenre.push(" " + personGenreString[i].name);
+                    }
+                }
+
+                var similarArtists = [];
+                var similarArtistsString = response.artist.similar.artist;
+
+
+                for (var i = 0; i < similarArtistsString.length; i++) {
+
+                    if (i <= 0) {
+                        similarArtists.push("<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>");
+                    }
+                    else {
+                        similarArtists.push(" " + "<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>");
+                    }
+                }
+
+                var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content + "</div>",
+                "<b>Genre: </b>" + personGenre,
+                "<b>Find Similar Artists: </b>" + similarArtists];
+
+                var seeMore = $("<div>");
+                seeMore.text("See more...");
+                $("#bio").append(seeMore);
+
+                var personDiv = $("<div>");
+
+                for (var i = 0; i < person.length; i++) {
+                    var artist = $("<div>");
+                    artist.html(person[i]);
+                    personDiv.append(artist);
+                    personDiv.append("<br>");
+                }
+                $("#pic").append(personDiv);
             });
+
+
+
 
             $.ajax({
                 url: napsterURL,
@@ -196,9 +296,7 @@
                         method: "GET"
                     }).then(function (info) {
                         infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(info.artists[0].name));
-                        if (i % 2 !== 0) {
-                            infButtons.append("<br>");
-                        };
+
                     });
 
                 };
@@ -212,9 +310,7 @@
                         method: "GET"
                     }).then(function (info) {
                         folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(info.artists[0].name));
-                        if (i % 2 !== 0) {
-                            folButtons.append("<br>");
-                        };
+
                     });
                 };
 
@@ -228,77 +324,151 @@
 
         };
 
+
+
+        var userSearchDone = false;
+        var treeOneButtons = $("<div class='tr1'>");
+        var nextTree = $("<div>");
+
         $(".card").hide();
+        $("#searchBar").hide();
+        $("#page-header").hide();
+
+        $(".footer").hide();
+
 
         $(document).bind('keypress', function (e) {
-            if (e.keyCode == 13) {
+            if (e.keyCode == 13 && !userSearchDone) {
+                $('#addArtistOpener').trigger('click');
+            } else if (e.keyCode == 13 && userSearchDone) {
                 $('#addArtist').trigger('click');
+
             }
+        });
+
+        $("#addArtistOpener").on("click", function () {
+            event.preventDefault();
+            userSearchDone = true;
+            var userInputOpener = $("#artistFormOpener").val();
+            userInputOpener = userInputOpener.replace("+", " ");
+            cardCreation(userInputOpener);
+            $("#artistFormOpener").val("");
+            $(".icons").fadeOut(500);
+            $("#searchBarOpener").fadeOut(500);
+            $(treeOneButtons).html("<hr>" + userInputOpener + "<hr>");
+            $("#tree1").append(treeOneButtons);
+
+
+            $(".icons").promise().done(function () {
+                $(".footer").fadeIn(3000);
+                $("#page-header").fadeIn(500);
+                $("#searchBar").fadeIn(500);
+                $(".card").fadeIn(1000);
+                $("#background-blur").fadeOut(500);
+                $("#background-clean").fadeIn(500);
+                // will be called when all the animations on the queue finish
+            });
+
         });
 
         $("#addArtist").on("click", function () {
-            
+
             event.preventDefault();
-            $("#toggle1").attr("style", "color: black; display: inline-block");
-            $("#toggle2").attr("style", "color: black; display: inline-block");
             var userInput = $("#artistForm").val();
-            userInput = userInput.replace("+"," ");
+            treeOneButtons.append("<hr>" + userInput + "<hr>");
+            $("#tree1").append(treeOneButtons);
+            userInput = userInput.replace(" ", "+");
             cardCreation(userInput);
             $("#artistForm").val("");
-            $(".icons").fadeOut(500);
-            $("#searchBar").fadeOut(500)
-            $("#select1").text(userInput);
-            $("#select1").append("<hr>");
-            
-$(".icons").promise().done(function(){
-    $(".card").fadeIn(1500);
-    // will be called when all the animations on the queue finish
-});
-          
+            $("#tree1").append(treeOneButtons);
+
+            // $("#tree1").append(nextTree);
+
+
+
 
         });
-
-        var treeOneButtons = $("<div class='tr1'>");
-
-
-        var treeOne = true;
-
+        
+            
+//         $(".informationButton .treeInstructions").tooltip({content: '<img src="images/treeTooltip.png" />' });
+        
+        
+        
+//           $("#content").html('<a id="riverroad" href="#" title="" >image of 1 Maple St.</a>');
+//    $("#content #riverroad").tooltip({content: '<img src="http://icdn.pro/images/fr/a/v/avatar-barbe-brun-homme-utilisateur-icone-9665-128.png" />' });
+             
+             
+                     var treeOne = true;
+             
         $(document).on("click", "#infl", function () {
             var userInput = $(this).text()
-            cardCreation(userInput);
-            console.log($(this).attr("id", "infl"));
-            treeOneButtons.append($("<button id='infl' style='background-color: brown'>").html(userInput));
-            $("#tree1").append(treeOneButtons);
-
-        });
-
+                cardCreation(userInput);
+                console.log($(this).attr("id", "infl"));
+            treeOneButtons.append($("<button id='inflTree' class='btn inflTreeIcon' width='100%'>").html("<span><img src='images/seedIconWhite.png' class='seedWhite' width='30' heigh='25'>" + userInput + "</span>"));
+                $("#tree1").append(treeOneButtons);
+    
+            });
+    
+    
+    
+    
+    
+        $(document).on("click", ".inflTreeIcon", function () {
+            var userInput = $(this).text()
+                    cardCreation(userInput);
+                });
+        
+        
         $(document).on("click", "#fol", function () {
             var userInput = $(this).text()
-            cardCreation(userInput);
-            treeOneButtons.append($("<button style='background-color: green'>").html(userInput));
-            $("#tree1").append(treeOneButtons);
-
-        });
-
+                    cardCreation(userInput);
+            treeOneButtons.append($("<button id='folTree' class='btn folTreeIcon' width='100%'>").html("<span><img src='images/treeIconWhite.png' class='treeWhite' width='30' height='30' style='display: inline; vertical-align: middle'>" + userInput + "</span>"));
+                    $("#tree1").append(treeOneButtons);
+        
+                });
+        
+        
+        
+        $(document).on("click", ".folTreeIcon", function () {
+            var userInput = $(this).text()
+                        cardCreation(userInput);
+                    });
+            
         $(document).on("click", "#clear1", function () {
-            $(".tr1").empty();
-        });
-
-
-
+                            $(".tr1").empty();
+                        });
+                
+                
+                
         $(document).on("click", "#select1", function () {
 
             if (!treeOne) {
-                treeOne = true;
-                $("#tree1").attr("style", "background-color: lightgray")
-                $("#tree2").attr("style", "background-color: white")
-                console.log(treeOne);
-            }
-        });
-
-
-
+                            treeOne = true;
+                        $("#tree1").attr("style", "background-color: lightgray")
+                        $("#tree2").attr("style", "background-color: white")
+                        console.log(treeOne);
+                    }
+                });
+        
+                var expand = false;
+        
+        $(document).on("click", ".bio", function () {
+            if (!expand) {
+                            $(this).removeAttr("id", "bio");
+                        expand = true;
+                    }
+            else {
+                            $(this).attr("id", "bio");
+                expand = false;
+                    }
+                });
+        
+        
+        
     </script>
+
+
 </body>
+
 
 </html>
