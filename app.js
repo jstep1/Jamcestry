@@ -317,6 +317,11 @@ var cardCreation = function(enter) {
             $("#followers").html(folButtons);
     
             });
+<<<<<<< HEAD
+      
+
+=======
+>>>>>>> 63c7def0b57e2fb120c975903841e48a4eeeb402
 
 // Submit artist selection and begin the function to generate their information
     

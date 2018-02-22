@@ -136,10 +136,19 @@
                     </div>
                 </form>
             </div>
+<<<<<<< HEAD
+        </div>
+        <div>
+=======
         </div>
         <div>
 
+<<<<<<< HEAD
+        
+          
+=======
             <button type="button" class="btn btn-primary" id="addArtistOpener">Submit</button>
+>>>>>>> 71d7875a9d50e76449b6a9674256c73be1c3a1e9
 
         </div>
     </div>
@@ -170,8 +179,52 @@
 
 
     </div>
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
+
+            <button type="button" class="btn btn-primary" id="addArtistOpener">Submit</button>
+
+        </div>
+    </div>
+    </div>
+
+    </div>
+
+<<<<<<< HEAD
+    <div class="footer">
+=======
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
+
+        <p class="footp">
+            <strong>Powered by </strong>
+            <img src="images/napster.png" id="napster">
+            <img src="images/lastfm.png" id="lastfm">
+            <img src="images/spotify.png" id="spotify">
+        </p>
+
+        <p class="footp">
+            <strong>Connect with us! </strong>
+            <a href="https://www.instagram.com" target="_blank">
+                <img src="images/insta.png" id="insta">
+            </a>
+            <a href="https://www.twitter.com/jamcestry" target="_blank">
+                <img src="images/twitter.png" id="twitter">
+            </a>
+            <p class="footp">
+                <strong>&copy; 2018 Jamcestry</strong>
+            </p>
 
 
+    </div>
+
+
+<<<<<<< HEAD
+=======
+            $.ajax({
+                url: lastfmURL,
+                method: "GET"
+            }).then(function (response) {
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
 
     <script>
         var cardCreation = function (enter) {
@@ -186,11 +239,21 @@
                 $("#artist-name").html("<h2>" + artistName + "<h2>");
                 var imageSrc = response.artist.image[response.artist.image.length - 1];
                 var imageElement = imageSrc[Object.keys(imageSrc)[0]];
+<<<<<<< HEAD
                 var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px' class='artistImage'>");
+=======
+
+                var image = $("<img src='" + imageElement + "' style='height: 200px; width: 200px' class='artistImage'>");
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
                 $("#pic").html(image);
                 var personGenre = [];
                 var personGenreString = response.artist.tags.tag;
                 for (var i = 0; i < personGenreString.length; i++) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
                     if (i <= 0) {
                         personGenre.push(personGenreString[i].name);
                     }
@@ -198,9 +261,19 @@
                         personGenre.push(" " + personGenreString[i].name);
                     }
                 }
+<<<<<<< HEAD
                 var similarArtists = [];
                 var similarArtistsString = response.artist.similar.artist;
                 for (var i = 0; i < similarArtistsString.length; i++) {
+=======
+
+                var similarArtists = [];
+                var similarArtistsString = response.artist.similar.artist;
+
+
+                for (var i = 0; i < similarArtistsString.length; i++) {
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
                     if (i <= 0) {
                         similarArtists.push("<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>");
                     }
@@ -208,13 +281,25 @@
                         similarArtists.push(" " + "<a href='https://en.wikipedia.org/wiki/" + similarArtistsString[i].name + "' target='_blank'>" + similarArtistsString[i].name + "</a>");
                     }
                 }
+<<<<<<< HEAD
                 var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content + "</div>",
                 "<b>Genre: </b>" + personGenre,
                 "<b>Find Similar Artists: </b>" + similarArtists];
+=======
+
+                var person = ["<div class='bio' id='bio'><b>Bio: </b>" + response.artist.bio.content + "</div>",
+                "<b>Genre: </b>" + personGenre,
+                "<b>Find Similar Artists: </b>" + similarArtists];
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
                 var seeMore = $("<div>");
                 seeMore.text("See more...");
                 $("#bio").append(seeMore);
                 var personDiv = $("<div>");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
                 for (var i = 0; i < person.length; i++) {
                     var artist = $("<div>");
                     artist.html(person[i]);
@@ -223,6 +308,13 @@
                 }
                 $("#pic").append(personDiv);
             });
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
             $.ajax({
                 url: napsterURL,
                 method: "GET"
@@ -267,6 +359,7 @@
                 $("#followers").html(folButtons);
             });
         };
+<<<<<<< HEAD
         var userSearchDone = false;
         var treeOneButtons = $("<div class='tr1'>");
         var nextTree = $("<div>");
@@ -274,13 +367,34 @@
         $("#searchBar").hide();
         $("#page-header").hide();
         $(".footer").hide();
+=======
+
+
+
+        var userSearchDone = false;
+        var treeOneButtons = $("<div class='tr1'>");
+        var nextTree = $("<div>");
+
+        $(".card").hide();
+        $("#searchBar").hide();
+        $("#page-header").hide();
+
+        $(".footer").hide();
+
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
         $(document).bind('keypress', function (e) {
             if (e.keyCode == 13 && !userSearchDone) {
                 $('#addArtistOpener').trigger('click');
             } else if (e.keyCode == 13 && userSearchDone) {
                 $('#addArtist').trigger('click');
+
             }
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
         $("#addArtistOpener").on("click", function () {
             event.preventDefault();
             userSearchDone = true;
@@ -292,6 +406,11 @@
             $("#searchBarOpener").fadeOut(500);
             $(treeOneButtons).html("<hr>" + userInputOpener + "<hr>");
             $("#tree1").append(treeOneButtons);
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
             $(".icons").promise().done(function () {
                 $(".footer").fadeIn(3000);
                 $("#page-header").fadeIn(500);
@@ -301,8 +420,16 @@
                 $("#background-clean").fadeIn(500);
                 // will be called when all the animations on the queue finish
             });
+<<<<<<< HEAD
         });
         $("#addArtist").on("click", function () {
+=======
+
+        });
+
+        $("#addArtist").on("click", function () {
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
             event.preventDefault();
             var userInput = $("#artistForm").val();
             treeOneButtons.append("<hr>" + userInput + "<hr>");
@@ -311,7 +438,16 @@
             cardCreation(userInput);
             $("#artistForm").val("");
             $("#tree1").append(treeOneButtons);
+<<<<<<< HEAD
             // $("#tree1").append(nextTree);
+=======
+
+            // $("#tree1").append(nextTree);
+
+
+
+
+>>>>>>> 76d8f62654c7bc27819ad83574022b001dcb1dcf
         });
         
             
