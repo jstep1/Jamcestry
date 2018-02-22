@@ -99,7 +99,7 @@ body #addArtistOpener {
 #header-icon {
     height: 40px;
     width: 40px;
-    margin-right: 15px;
+    
 }
 
 /* Page Header */
@@ -107,7 +107,7 @@ body #addArtistOpener {
     text-align: center;
     font-family: 'Lobster', cursive;
     height: 80px;
-    padding: 15px 0 25px 160px;
+    padding: 15px 0 25px 0;
     background-color: white;
     opacity: 0.7;
     margin-bottom: 12px;
@@ -237,6 +237,7 @@ body .tr1 {
 body #folTree, body #inflTree {
     width: 100%;
     margin-bottom: 5px;
+    
 }
 
 /* Style of icons inside of the tree tracker buttons */
@@ -251,6 +252,9 @@ body .inflTreeIcon, body .folTreeIcon {
     background-color: white;
     border: 1px solid lightgray;
     white-space: pre-wrap;
+    
+    
+    
     
 }
 
@@ -295,3 +299,30 @@ body .inflTreeIcon:hover, body .folTreeIcon:hover {
       padding-right:0px;
       padding-left: 3px;
   }
+
+
+  a.tooltips {outline:none; }
+  a.tooltips strong {line-height:30px;}
+  a.tooltips:hover {text-decoration:none;} 
+  a.tooltips span {
+      z-index:10;display:none; padding:14px 20px;
+      margin-top:-120px; margin-left:-340px;
+      width:320px; line-height:16px;
+  }
+  a.tooltips:hover span{
+      display:inline; position:absolute; 
+      border:2px solid black;  color:black;
+      background: white;
+  }
+  
+  
+      
+  /*CSS3 extras*/
+  a.tooltips span
+  {
+      border-radius:3px;        
+     
+      /*opacity: 0.8;*/
+  }
+
+

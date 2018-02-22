@@ -62,7 +62,7 @@ cardCreation = function (enter) {
         var similarArtistsString = response.artist.similar.artist;
 
         var image = $("<img src='" + imageElement +
-            "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
+            "' style='height: 200px; width: 200px; float: left; margin: 5px 20px 0 0'>");
 
         $("#artist-name").html("<h2>" + artistName + "<h2>");
 
@@ -250,6 +250,8 @@ $("#addArtistOpener").on("click", function () {
         }
 
     });
+
+
     
     // Generation function runs once a "influencers" button is clicked
         
