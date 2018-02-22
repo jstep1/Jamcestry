@@ -196,6 +196,7 @@ $("#searchBar").hide();
 $("#page-header").hide();
 $(".footer").hide();
 
+
 // Assign keypress to Enter key
 
 $(document).bind('keypress', function (e) {
@@ -227,6 +228,7 @@ $("#addArtistOpener").on("click", function () {
         $(".card").fadeIn(1000);
         $("#background-blur").fadeOut(500);
         $("#background-clean").fadeIn(500);
+        $("#wat").hide()
     });
 });
     
