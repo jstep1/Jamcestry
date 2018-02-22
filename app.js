@@ -92,7 +92,7 @@ cardCreation = function (enter) {
         var similarArtistsString = response.artist.similar.artist;
 
         var image = $("<img src='" + imageElement +
-            "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
+            "' style='height: 200px; width: 200px; float: left; margin: 5px 20px 0 0'>");
 
         $("#artist-name").html("<h2>" + artistName + "<h2>");
 
@@ -237,7 +237,12 @@ $("#searchBar").hide();
 $("#page-header").hide();
 $(".footer").hide();
 
+<<<<<<< HEAD
     // Assign search functionality to "enter" key
+=======
+
+// Assign keypress to Enter key
+>>>>>>> 9364ec550d675a30b57dcad88acb9ee2960e4ec4
 
 $(document).bind('keypress', function (e) {
     if (e.keyCode == 13 && !userSearchDone) {
@@ -263,15 +268,17 @@ $("#addArtistOpener").on("click", function () {
     $(treeOneButtons).html("<div class='treetop' id='" + player + "'><hr><span id='" + player + count + "'>" + userInput + "</span><hr></div>");
     $("#tree1").append(treeOneButtons);
     $(".icons").promise().done(function () {
-        $(".footer").fadeIn(3000);
+        $(".footer").fadeIn(2000);
         $("#page-header").fadeIn(500);
         $("#searchBar").fadeIn(500);
         $(".card").fadeIn(1000);
         $("#background-blur").fadeOut(500);
         $("#background-clean").fadeIn(500);
+        $("#wat").hide()
     });
 });
 
+<<<<<<< HEAD
     // Secondary search function that generates artist information from new user input
 
 $("#addArtist").on("click", function () {
@@ -282,6 +289,16 @@ $("#addArtist").on("click", function () {
         count++;
         var userInput = $("#artistForm").val();
         player = userInput.replace(" ", "");
+=======
+    });
+
+
+    
+    // Generation function runs once a "influencers" button is clicked
+        
+    $(document).on("click", "#infl", function () {
+        var userInput = $(this).text();
+>>>>>>> 9364ec550d675a30b57dcad88acb9ee2960e4ec4
         embedYoutube(userInput);
         cardCreation(userInput);
         $("#artistForm").val("");

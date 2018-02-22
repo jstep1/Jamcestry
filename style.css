@@ -1,17 +1,87 @@
-#page-header {
-    text-align: center;
-    font-family: 'Lobster', cursive;
-    height: 80px;
-    padding: 15px 0 25px 160px;
-    background-color: white;
-    opacity: 0.7;
-    margin-bottom: 12px;
-    color: black;
-    -webkit-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
-    -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
-    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
+#tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
 }
 
+#tooltip #tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+#tooltip:hover #tooltiptext {
+    visibility: visible;
+}
+
+
+/* HTML sizing */
+html {
+    height: 100%;
+
+}
+
+ /* Page body */
+ body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
+    background-size: cover;
+    background-attachment: fixed;
+ }
+
+ #wat {
+     opacity: 0;
+ }
+ /* Setting margin at bottom of page */
+#content-container  {
+    margin-bottom: 50px;
+}
+
+/* Blurred Background */
+#background-blur {
+    background-image: url("images/JamcestryBackground3Blur.png");
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -2;
+    background-size: cover;
+    background-attachment: fixed;
+ 
+ }
+
+/* Opening page header text */
+#openingHeader {
+    font-family: 'Lobster', cursive;
+    font-size: 70px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+}
+
+/* The container for the opening page icons and text */
+.icons {
+    text-align: center;
+    align-content: center;
+}
+
+/* Div that holds opening page icons and text */
+.bigicons {
+    text-align: center;
+}
+
+/* Opening page center screen icons */
 #iconz{
 
     height: 90px;
@@ -21,10 +91,8 @@
     padding-right: 30px;
     
 }
-.bigicons {
-    text-align: center;
-}
 
+/* opening page center page icons text */
 #iconzText {
     
     font-size: 18px;
@@ -32,27 +100,54 @@
     color: white;
 }
 
-.jumbotron {
-    height: auto;
-    background-color: transparent;
-    margin-top: none;
-    align-content: center;
-
-}
-.centerPanels {
-    display: inline-flex;
-    margin-left: 50%;
-}
-
+/* Opening screen search bar */
 #searchBarOpener {
     margin-top: 40px;
 }
 
+/* Opening Screen search button */
 body #addArtistOpener {
     margin-top: 5px;
     align-content: center;
 }
 
+/* Unblurred Background */
+#background-clean {
+    background-image: url("images/JamcestryBackground3.png");
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -3;
+    background-size: cover;
+    background-attachment: fixed;
+ 
+ }
+
+ /* Icon to left of main page header*/
+#header-icon {
+    height: 40px;
+    width: 40px;
+    
+}
+
+/* Page Header */
+#page-header {
+    text-align: center;
+    font-family: 'Lobster', cursive;
+    height: 80px;
+    padding: 15px 0 25px 0;
+    background-color: white;
+    opacity: 0.7;
+    margin-bottom: 12px;
+    color: black;
+    -webkit-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
+    -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
+    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
+}
+
+
+
+/* Main page top right icons */
 .svg-inline--fa {
     float: right;
     margin: 0 10px;
@@ -60,45 +155,20 @@ body #addArtistOpener {
     padding-right: 5px;
 }
 
+/* Styling search buttons */
+#addArtist, #addArtistOpener, .clear-tree {
+    background-color: rgb(87, 41, 41);
+    color: white;
 
-#background-blur {
-    background-image: url("images/JamcestryBackground3Blur.png");
-    position: absolute;
- height: 100%;
- width: 100%;
- z-index: -2;
- background-size: cover;
-    background-attachment: fixed;
- 
- }
- 
- #background-clean {
-    background-image: url("images/JamcestryBackground3.png");
-    position: absolute;
- height: 100%;
- width: 100%;
- z-index: -3;
- background-size: cover;
-    background-attachment: fixed;
- 
- }
+}
 
- html {
-     height: 100%;
-
- }
- body {
-    position: relative;
-  margin: 0;
-  padding-bottom: 6rem;
-  min-height: 100%;
-
-    
-    background-size: cover;
-    background-attachment: fixed;
- }
+/* Styling search buttons hover state */
+#addArtist:hover, #addArtistOpener:hover {
+    background-color: lightgreen;
+}
 
 
+/* Artist Card Style */
 .card {
     width: 275px;
     padding:0 30px 30px 30px;;
@@ -111,119 +181,21 @@ body #addArtistOpener {
    
 }
 
-#fol, #infl {
-    border-radius: 30px;
-    margin-right: 3px;
-    margin-top: 3px;
-    padding: 4px 15px;
-
-}
-
-.search {
-    padding-left: 0;
-}
-
-#header-icon {
-    height: 40px;
-    width: 40px;
-    margin-right: 15px;
-}
-
+/* Artist name styling in artist Card */
 body #artist-name {
     font-family: 'Amiri', serif;
     padding-top: 20px;
     padding-bottom: 5px;
 }
 
-#addArtist, #addArtistOpener, .clear-tree {
-    background-color: rgb(87, 41, 41);
-    color: white;
-    
-
-}
-
-#addArtist:hover, #addArtistOpener:hover {
-    background-color: lightgreen;
-}
-
-#content-container  {
-    margin-bottom: 50px;
-}
-
-body #fol:hover, .clear-tree:hover {
-    background-color: lightgreen;
-    
-}
-
-body #infl:hover {
-    background-color: rgb(87, 41, 41);
-    
-}
-
-body #infl {
-    display: inline-block;
-}
-
-#select1 {
-    text-align: center;
-    padding-top: 15px;
-    font-family: 'Lobster', cursive;
-}
-
-#primaryArtist {
-    text-align: center;
-    font-weight: bold;
-}
-
-.treeInstructions {
-    height: 12px;
-    width: 12px;
-    opacity: 0.5;
-    margin-bottom: 2px;
-
-}
-
-
-body .tr1 {
-    text-align: center;
-    
-}
-
-body #folTree, body #inflTree {
-    width: 100%;
-    margin-bottom: 5px;
-}
-
-body .treeWhite, body .seedWhite {
-    float: left;
-
-}
-#input {
-    flex-wrap: wrap;
-}
-
-body .inflTreeIcon, body .folTreeIcon {
-    background-color: white;
-    border: 1px solid lightgray;
-    white-space: pre-wrap;
-    
-}
-
-body .inflTreeIcon:hover, body .folTreeIcon:hover {
-    background-color: lightgray;
-    
-}
-body .tr1 {
-    text-align: center;
-    
-}
-
+/* Styling image of artist in the card */
 .artistImage {
     float: left;
     margin: 7px 10px 5px 0;
     
 }
 
+/* Style of bio information in card */
 #bio {
     overflow: hidden;
     display: -webkit-box;
@@ -232,20 +204,36 @@ body .tr1 {
     
   }
 
- .treeWhite {
-     margin-right: 5px;
- }
+/* Followers and Influencers Buttons */
+#fol, #infl {
+    border-radius: 30px;
+    margin-right: 3px;
+    margin-top: 3px;
+    padding: 4px 15px;
 
-#icon {
-    height: 200px;
-    width: auto;
-    align-content: center;
-    color: green;
-    text-shadow: green;
-    padding-left: 30px;
-    padding-right: 30px;
 }
 
+/* Setting hover state of clear tree and follower buttons */
+body #fol:hover, .clear-tree:hover {
+    background-color: lightgreen;
+    
+}
+
+/* Setting hover state of influencer buttons */
+body #infl:hover {
+    background-color: rgb(87, 41, 41);
+    
+}
+
+
+/* Header of the tree tracker */
+#select1 {
+    text-align: center;
+    padding-top: 15px;
+    font-family: 'Lobster', cursive;
+}
+
+/* Tool tip instructions  */
 body .instructions {
     width: auto;
     margin: 0 55px;
@@ -258,27 +246,53 @@ body .instructions {
     padding: 0;
 }
 
+/* Tree tracker tooltip instructions */
+.treeInstructions {
+    height: 12px;
+    width: 12px;
+    opacity: 0.5;
+    margin-bottom: 2px;
 
-.instructionsContainer {
-    margin-top: 10px;
-    align-content: center;
 }
 
-.icons {
+/* Style of div followers and influencer buttons get appended to */
+body .tr1 {
     text-align: center;
-    align-content: center;
+    
 }
 
-#openingHeader {
-    font-family: 'Lobster', cursive;
-    font-size: 70px;
-    color: white;
-    margin-top: 10px;
-    margin-bottom: 40px;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+/* Style of the buttons that get appended to the tree tracker */
+body #folTree, body #inflTree {
+    width: 100%;
+    margin-bottom: 5px;
+    
+}
+
+/* Style of icons inside of the tree tracker buttons */
+body .treeWhite, body .seedWhite {
+    float: left;
+    margin-right: 5px;
 
 }
 
+/* Additional styling inside the buttons on the tree tracker  */
+body .inflTreeIcon, body .folTreeIcon {
+    background-color: white;
+    border: 1px solid lightgray;
+    white-space: pre-wrap;
+    
+    
+    
+    
+}
+
+/* Setting hover state of the tree tracker buttons */
+body .inflTreeIcon:hover, body .folTreeIcon:hover {
+    background-color: lightgray;
+    
+}
+
+/* Footer styling */
 .footer {
     font-size: 10px;
     position: absolute;
@@ -290,23 +304,58 @@ body .instructions {
     background-color: white;
     opacity: 0.6;
     padding-top: 10px;
-    text-align: center;
-    height: 100px;
+    height: 80px;
+    
   }
  
+  /* footer text styling */
   .footp {
-      margin-top:4px;
+      margin-top:15px;
       margin-bottom: 4px;
+      padding-left: 25px;
+      padding-right: 25px;
+    
   }
+
  
+ 
+  /* Footer icons */
   #napster, #lastfm, #youtube, #insta, #twitter {
-      height:29px;
+      height:35px;
       width:auto;
       padding-left:10px;
       padding-right:10px;
   }
  
+  /* Napster Icon needed specific styling */
   #napster {
       padding-right:0px;
       padding-left: 3px;
   }
+
+
+  a.tooltips {outline:none; }
+  a.tooltips strong {line-height:30px;}
+  a.tooltips:hover {text-decoration:none;} 
+  a.tooltips span {
+      z-index:10;display:none; padding:14px 20px;
+      margin-top:-120px; margin-left:-340px;
+      width:320px; line-height:16px;
+  }
+  a.tooltips:hover span{
+      display:inline; position:absolute; 
+      border:2px solid black;  color:black;
+      background: white;
+  }
+  
+  
+      
+  /*CSS3 extras*/
+  a.tooltips span
+  {
+      border-radius:3px;        
+     
+      /*opacity: 0.8;*/
+  }
+
+
