@@ -15,16 +15,16 @@ You can even build a "Jam-ily Tree" to see the historical progression that creat
 Jamcestry was built using the following technologies:
 
 <b>Programming Languages</b>
-HTML
-CSS (Bootstrap)
-Javascript/jQuery
+HTML<br>
+CSS (Bootstrap)<br>
+Javascript/jQuery<br>
 
 <b>APIs</b>
-Napster
-LastFM
+Napster<br>
+LastFM<br>
 YouTube
 
 # Collaborators
-Jeremy Stepanovich
-Anthony Peterson
+Jeremy Stepanovich<br>
+Anthony Peterson<br>
 Mike Binder

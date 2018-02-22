@@ -138,14 +138,13 @@ body .tr1 {
     
 }
 
-<<<<<<< HEAD
 #bio {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 9;
   -webkit-box-orient: vertical;
 }
-=======
+
 #icon {
     
     height: 200px;
@@ -161,4 +160,3 @@ body .tr1 {
 
 }
 
->>>>>>> 1ddb623d76434141b61d02138841711bf2828286

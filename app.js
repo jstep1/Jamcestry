@@ -3,8 +3,6 @@
 var cardCreation = function(enter) {
 
     // Create dynamic URL links based on user input (search or click)
-    
-        var discogsURL = "https://api.discogs.com/database/search?q=" + enter + "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
         
         var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter + "&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
         
