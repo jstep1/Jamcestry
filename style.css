@@ -206,6 +206,7 @@ body .tr1 {
     
 }
 
+<<<<<<< HEAD
 .artistImage {
     float: left;
     margin: 7px 10px 5px 0;
@@ -223,6 +224,16 @@ body .tr1 {
  .treeWhite {
      margin-right: 5px;
  }
+=======
+<<<<<<< HEAD
+#bio {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 9;
+  -webkit-box-orient: vertical;
+}
+=======
+>>>>>>> 63c7def0b57e2fb120c975903841e48a4eeeb402
 #icon {
     
     height: 200px;
@@ -274,6 +285,7 @@ body .instructions {
 
 }
 
+<<<<<<< HEAD
 
 .footer {
     font-size: 10px;
@@ -309,3 +321,6 @@ body .instructions {
       padding-right:0px;
       padding-left: 3px;
   }
+=======
+>>>>>>> 1ddb623d76434141b61d02138841711bf2828286
+>>>>>>> 63c7def0b57e2fb120c975903841e48a4eeeb402
