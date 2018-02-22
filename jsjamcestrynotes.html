@@ -11,7 +11,6 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
-    <!-- <script src="jsjamcestrynotes.js"></script> -->
 </head>
 
 <body>
@@ -110,7 +109,7 @@
             <div class="row">
 
                 <div class="col-md-6">
-                    <p id="toggle1" display: "none">
+                    <p id="toggle1">
                         <strong>Influences</strong>
                     </p>
                     <div id="influences">
@@ -118,7 +117,7 @@
                 </div>
 
                 <div class="col-md-6">
-                    <p id="toggle2" style="color: green; display: none">
+                    <p id="toggle2">
                         <strong>Followers</strong>
                     </p>
                     <div id="followers">
@@ -142,45 +141,41 @@
     </div>
 
     <script>
-        var config = {
-    apiKey: "AIzaSyDrH9EgIqbFUdTJelsxfVYi321-aPBxUVU",
-    authDomain: "jamcestry-51487.firebaseapp.com",
-    databaseURL: "https://jamcestry-51487.firebaseio.com",
-    projectId: "jamcestry-51487",
-    storageBucket: "jamcestry-51487.appspot.com",
-    messagingSenderId: "1078137461626"
-  };
-
-firebase.initializeApp(config);
-
-var database = firebase.database();
-
-var artistRef = database.ref("/artists");
-
         var player = "";
 
-        var entryMod = function () {
+        display = 0;
+
+        treeOneButtons = $("<div class='tr1'>");
+
+        treeOne = true;
+
+        expand = false;
+
+        entryMod = function () {
             $("#invalid").fadeIn(200);
         };
 
-        var showMod = function () {
+        showMod = function () {
             $("#exampleModal").fadeIn(200);
         };
 
-        var hideMod = function () {
+        hideMod = function () {
             $("#exampleModal").fadeOut(200);
             $("#invalid").fadeOut(200);
         };
 
-        var cardCreation = function (enter) {
+        embedYoutube = function (input) {
+            $("#player").html(
+                "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+                input + "' frameborder='0'></iframe>");
+        };
 
-            var discogsURL = "https://api.discogs.com/database/search?q=" + enter +
-                "&key=hbrLdVvWBgVAqaAOpKos&secret=TlXBKlwWFLoTNJHYyBEIhzNIaZoVpHnV";
+        cardCreation = function (enter) {
 
             var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter +
                 "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
-            var napsterURL =
+            napsterURL =
                 "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" +
                 enter + "&type=artist&limit=1";
 
@@ -192,20 +187,24 @@ var artistRef = database.ref("/artists");
 
                 var artistName = response.artist.name
 
-                $("#artist-name").html("<h2>" + artistName + "<h2>");
+                imageSrc = response.artist.image[response.artist.image.length - 1];
 
-                var imageSrc = response.artist.image[response.artist.image.length - 1];
+                imageElement = imageSrc[Object.keys(imageSrc)[0]];
 
-                var imageElement = imageSrc[Object.keys(imageSrc)[0]];
+                personGenre = [];
 
-                var image = $("<img src='" + imageElement +
+                personGenreString = response.artist.tags.tag;
+
+                similarArtists = [];
+
+                similarArtistsString = response.artist.similar.artist;
+
+                image = $("<img src='" + imageElement +
                     "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
 
+                $("#artist-name").html("<h2>" + artistName + "<h2>");
+
                 $("#pic").html(image);
-
-                var personGenre = [];
-
-                var personGenreString = response.artist.tags.tag;
 
                 for (var i = 0; i < personGenreString.length; i++) {
 
@@ -215,10 +214,6 @@ var artistRef = database.ref("/artists");
                         personGenre.push(" " + personGenreString[i].name);
                     }
                 }
-
-                var similarArtists = [];
-
-                var similarArtistsString = response.artist.similar.artist;
 
                 for (var i = 0; i < similarArtistsString.length; i++) {
 
@@ -267,29 +262,31 @@ var artistRef = database.ref("/artists");
 
                 var influencesIDs = [];
 
-                var followersIDs = [];
+                followersIDs = [];
 
-                if (response.search.data.artists[0].links.influences !== undefined) {
-                    var ids = response.search.data.artists[0].links.influences.ids;
+                infButtons = $("<div>");
+
+                folButtons = $("<div>");
+
+                artistRef = response.search.data.artists[0].links;
+
+                if (artistRef.influences !== undefined) {
+                    var ids = artistRef.influences.ids;
                     for (var i = 0; i < ids.length; i++) {
-                        influencesIDs.push(response.search.data.artists[0].links.influences.ids[i]);
+                        influencesIDs.push(artistRef.influences.ids[i]);
                     }
                 }
 
-                if (response.search.data.artists[0].links.followers !== undefined) {
-                    var ids = response.search.data.artists[0].links.followers.ids;
+                if (artistRef.followers !== undefined) {
+                    var ids = artistRef.followers.ids;
                     for (var i = 0; i < ids.length; i++) {
-                        followersIDs.push(response.search.data.artists[0].links.followers.ids[i]);
+                        followersIDs.push(artistRef.followers.ids[i]);
                     }
                 }
 
                 influencesIDs.splice(4);
 
                 followersIDs.splice(4);
-
-                var infButtons = $("<div>");
-
-                var folButtons = $("<div>");
 
                 for (var i = 0; i < influencesIDs.length; i++) {
 
@@ -302,9 +299,6 @@ var artistRef = database.ref("/artists");
                     }).then(function (info) {
                         infButtons.append($("<button id='infl' class='btn btn-outline-primary'>").html(
                             info.artists[0].name));
-                        if (i % 2 !== 0) {
-                            infButtons.append("<br>");
-                        };
                     });
 
                 };
@@ -320,9 +314,6 @@ var artistRef = database.ref("/artists");
                     }).then(function (info) {
                         folButtons.append($("<button id='fol' class='btn btn-outline-primary'>").html(
                             info.artists[0].name));
-                        if (i % 2 !== 0) {
-                            folButtons.append("<br>");
-                        };
                     });
                 };
 
@@ -346,47 +337,21 @@ var artistRef = database.ref("/artists");
             if ($("#artistForm").val() !== "") {
                 $(".card").show();
                 event.preventDefault();
-                $("#toggle1").attr("style", "color: black; display: inline-block");
-                $("#toggle2").attr("style", "color: black; display: inline-block");
                 var userInput = $("#artistForm").val();
-                userInput = userInput.replace(" ", "+");
-                player = userInput;
-                $("#player").html(
-                    "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
-                    player + "' frameborder='0'></iframe>");
+                embedYoutube(userInput);
                 cardCreation(userInput);
-                console.log(player);
-
-                database.ref("/" + player + "/views").on("value", function(snapshot) {
-                var viewed = snapshot.val();
-                viewed++;
-                console.log(viewed);
-                $("#searched").text("Searched " + viewed + " times")
-                }, function(errorObject) {
-                console.log("The read failed: " + errorObject.code);
-                });
-
-
                 $("#artistForm").val("");
-
-            } else {
+            }
+             
+            else {
                 entryMod();
             }
 
         });
 
-        var treeOneButtons = $("<div class='tr1'>");
-
-
-        var treeOne = true;
-
         $(document).on("click", "#infl", function () {
             var userInput = $(this).text();
-            userInput = userInput.replace(" ", "+");
-            player = userInput;
-            $("#player").html(
-                "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
-                player + "' frameborder='0'></iframe>");
+            embedYoutube(userInput);
             cardCreation(userInput);
             treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(
                 userInput));
@@ -396,14 +361,7 @@ var artistRef = database.ref("/artists");
 
         $(document).on("click", "#fol", function () {
             var userInput = $(this).text();
-            userInput = userInput.replace(" ", "+");
-            player = userInput;
-            $("#player").html(
-                "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
-                player + "' frameborder='0'></iframe>");
-            cardCreation(userInput);
-            treeOneButtons.append($("<button id='infl' style='background-color: brown; width:100%''>").html(
-                userInput));
+            embedYoutube(userInput);
             cardCreation(userInput);
             treeOneButtons.append($("<button style='background-color: green; width='100%''>").html(userInput));
             $("#tree1").append(treeOneButtons);
@@ -414,18 +372,6 @@ var artistRef = database.ref("/artists");
             $(".tr1").empty();
         });
 
-
-        $(document).on("click", "#select1", function () {
-
-            if (!treeOne) {
-                treeOne = true;
-                $("#tree1").attr("style", "background-color: lightgray")
-                $("#tree2").attr("style", "background-color: white")
-                console.log(treeOne);
-            }
-        });
-
-        var expand = false;
 
         $(document).on("click", ".bio", function () {
             if (!expand) {
@@ -440,6 +386,7 @@ var artistRef = database.ref("/artists");
         });
 
         $(document).on("click", ".close", hideMod);
+
     </script>
 
 </body>
