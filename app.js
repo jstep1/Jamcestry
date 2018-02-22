@@ -222,7 +222,7 @@ $("#addArtistOpener").on("click", function () {
     $(treeOneButtons).html("<hr>" + userInputOpener + "<hr>");
     $("#tree1").append(treeOneButtons);
     $(".icons").promise().done(function () {
-        $(".footer").fadeIn(3000);
+        $(".footer").fadeIn(2000);
         $("#page-header").fadeIn(500);
         $("#searchBar").fadeIn(500);
         $(".card").fadeIn(1000);

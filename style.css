@@ -300,15 +300,20 @@ body .inflTreeIcon:hover, body .folTreeIcon:hover {
     background-color: white;
     opacity: 0.6;
     padding-top: 10px;
-    text-align: center;
-    height: 100px;
+    height: 80px;
+    
   }
  
   /* footer text styling */
   .footp {
-      margin-top:4px;
+      margin-top:15px;
       margin-bottom: 4px;
+      padding-left: 25px;
+      padding-right: 25px;
+    
   }
+
+ 
  
   /* Footer icons */
   #napster, #lastfm, #youtube, #insta, #twitter {
