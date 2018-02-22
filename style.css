@@ -11,9 +11,13 @@
     -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     
+
+
 }
 
 
+
+    
 .svg-inline--fa {
     float: right;
     margin: 0 10px;
@@ -122,7 +126,7 @@ body .tr1 {
     
 }
 
-#icon {
+#iconz{
     
     height: 200px;
     width: auto;
@@ -132,10 +136,8 @@ body .tr1 {
     padding-left: 30px;
     padding-right: 30px;
 }
-.icons {
+.bigicons {
     text-align: center;
 
 }
 
-#searchBar {
-}
