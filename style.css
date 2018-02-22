@@ -4,13 +4,32 @@
     height: 80px;
     padding: 15px 0 25px 160px;
     background-color: white;
-    opacity: 0.6;
+    opacity: 0.7;
     margin-bottom: 12px;
     color: black;
     -webkit-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     
+}
+
+
+#searchBarOpener {
+    margin-top: 40px;
+}
+
+body #addArtistOpener {
+    margin-top: 5px;
+    align-content: center;
+}
+
+
+#quote {
+    margin-top: 30px;
+    font-family: 'Pacifico', cursive;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
 }
 
 
@@ -21,25 +40,64 @@
     padding-right: 5px;
 }
 
-body {
+
+#background-blur {
+    background-image: url("images/JamcestryBackground3Blur.png");
+    position: absolute;
+ height: 100%;
+ width: 100%;
+ z-index: -2;
+ background-size: cover;
+    background-attachment: fixed;
+ 
+ }
+ 
+ #background-clean {
+    background-image: url("images/JamcestryBackground3.png");
+    position: absolute;
+ height: 100%;
+ width: 100%;
+ z-index: -3;
+ background-size: cover;
+    background-attachment: fixed;
+ 
+ }
+
+ html {
+     height: 100%;
+
+ }
+ body {
+    position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+
     
-    background: url("images/JamcestryBackground3.png");
     background-size: cover;
     background-attachment: fixed;
-}
+ }
 
 
 .card {
     width: 275px;
-    padding-bottom: 20px;
+    padding:0 30px 30px 30px;;
     -webkit-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     -moz-box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.34);
     opacity: 0.9;
+    background-color: white;
+
    
 }
 
+#fol, #infl {
+    border-radius: 30px;
+    margin-right: 3px;
+    margin-top: 3px;
+    padding: 4px 15px;
 
+}
 
 .search {
     padding-left: 0;
@@ -57,14 +115,14 @@ body #artist-name {
     padding-bottom: 5px;
 }
 
-#addArtist, .clear-tree {
+#addArtist, #addArtistOpener, .clear-tree {
     background-color: rgb(87, 41, 41);
     color: white;
-    border: none;
+    
 
 }
 
-#addArtist:hover {
+#addArtist:hover, #addArtistOpener:hover {
     background-color: lightgreen;
 }
 
@@ -79,12 +137,12 @@ body #artist-name {
 
 body #fol:hover, .clear-tree:hover {
     background-color: lightgreen;
-    border: 0;
+    
 }
 
 body #infl:hover {
     background-color: rgb(87, 41, 41);
-    border: 0;
+    
 }
 
 body #infl {
@@ -94,6 +152,11 @@ body #infl {
 #select1 {
     padding-top: 15px;
     font-family: 'Lobster', cursive;
+}
+
+#primaryArtist {
+    text-align: center;
+    font-weight: bold;
 }
 
 .treeInstructions {
@@ -126,18 +189,40 @@ body .treeWhite, body .seedWhite {
 body .inflTreeIcon, body .folTreeIcon {
     background-color: white;
     border: 1px solid lightgray;
+    white-space: pre-wrap;
+    
+   
 
 }
 
+
+
 body .inflTreeIcon:hover, body .folTreeIcon:hover {
     background-color: lightgray;
-    border: none;
+    
 }
 body .tr1 {
     text-align: center;
     
 }
 
+.artistImage {
+    float: left;
+    margin: 7px 10px 5px 0;
+    
+}
+
+#bio {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+    
+  }
+
+ .treeWhite {
+     margin-right: 5px;
+ }
 #icon {
     
     height: 200px;
@@ -148,8 +233,79 @@ body .tr1 {
     padding-left: 30px;
     padding-right: 30px;
 }
+
+body .instructions {
+    width: auto;
+    margin: 0 55px;
+    font-weight: bold;
+    font-family: 'Josefin Sans', sans-serif;
+    color: white;
+    font-weight: bold;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-align: center;
+    padding: 0;
+}
+
+
+
+.instructionsContainer {
+    margin-top: 10px;
+    align-content: center;
+    
+}
+
+
+
 .icons {
     text-align: center;
+    align-content: center;
+    
+    
 
 }
 
+#openingHeader {
+    font-family: 'Lobster', cursive;
+    font-size: 70px;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+
+}
+
+
+.footer {
+    font-size: 10px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding-bottom:2px;
+    padding-left: 5px;
+    background-color: white;
+    opacity: 0.6;
+    padding-top: 10px;
+    text-align: center;
+    height: 100px;
+  
+ 
+    
+  }
+ 
+  .footp {
+      margin-top:4px;
+      margin-bottom: 4px;
+  }
+ 
+  #napster, #lastfm, #spotify, #insta, #twitter {
+      height:29px;
+      width:auto;
+      padding-left:10px;
+      padding-right:10px;
+  }
+ 
+  #napster {
+      padding-right:0px;
+      padding-left: 3px;
+  }
