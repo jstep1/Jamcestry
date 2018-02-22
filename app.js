@@ -320,7 +320,7 @@ var cardCreation = function(enter) {
     
             });
       
-};
+
 
 // Submit artist selection and begin the function to generate their information
     
