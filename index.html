@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jamcestry</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Amiri|Bellefair|Pacifico|Josefin+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<div id="background-blur"></div>
+<div id="background-clean"></div>
+
+<body>
+
+    <div id="page-header">
+        <h1>
+            <span>
+                <img id="header-icon" src="images/Glyphicon.png">
+            </span>Jamcestry
+            <i class="fas fa-redo-alt"></i>
+            <i class="fas fa-bed"></i>
+            <i class="fas fa-headphones"></i>
+        </h1>
+    </div>
+
+    <div id="content-container">
+        <div class="modal" tabindex="-1" role="dialog" id="invalid" style="opacity: 100%">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">WARNING!</h5>
+                        <button type="button" class="close" data-dismiss="#invalid" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Please enter a valid search.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="#invalid">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal" tabindex="-1" role="dialog" id="exampleModal" style="opacity: 100%">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">WARNING!</h5>
+                        <button type="button" class="close" data-dismiss="#exampleModal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>The information provided may not reflect your intended search. Please check your search parameters
+                            and try again.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary close" data-dismiss="#exampleModal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="searchBar">
+        <div class="col-md-3 offset-md-1">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="artistForm" placeholder="Enter an artist...">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" id="addArtist">Submit</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card col-md-7 offset-md-1">
+            <div id="artist-name">
+
+            </div>
+
+            <div id="pic">
+
+            </div>
+
+            <div id="input">
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 offset-md-3" id="player">
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <p id="toggle1">
+                        <strong>Influences</strong>
+                    </p>
+                    <div id="influences">
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <p id="toggle2">
+                        <strong>Followers</strong>
+                    </p>
+                    <div id="followers">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card col-md-2 offset-md-1" id="trees">
+            <div id="tree1">
+                <p id="select1">
+                    <span>
+                        <strong>Tree Tracker</strong>
+                    </span>
+                    <span>
+                        <a>
+                            <a id="tooltip" href="#" title="">
+                                <img src="images/treeInstructionsIcon.png" class="treeInstructions rounded" title="">
+                            </a>
+                        </a>
+                    </span>
+                    <div id="primaryArtist">
+
+                    </div>
+                </p>
+            </div>
+            <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
+        </div>
+        <br>
+
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="icons">
+        <div>
+            <h1 id="openingHeader">Jamcestry</h1>
+            <div class="row">
+                <div class="col-md-2 offset-md-3">
+                    <img src="images/searchIcon.png" id="icon" style="height: 80px; width: auto">
+                    <p class="instructions">Search.</p>
+                </div>
+                <div class="col-md-2">
+                    <img src="images/musicIcon.png" id="icon" style="height: 80px; width: auto">
+                    <p class="instructions">Learn.</p>
+                </div>
+                <div class="col-md-2">
+                    <img src="images/buildTreeIcon.png" id="icon" style="height: 80px; width: auto">
+                    <p class="instructions">Build.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div id="searchBarOpener" class="col-md-2 offset-md-5">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="artistFormOpener" placeholder="Enter an artist...">
+                    </div>
+                </form>
+            </div>
+            </div>
+                <div>
+                   
+                </div>
+                <div>
+
+                    <button type="button" class="btn btn-primary" id="addArtistOpener">Submit</button>
+
+                </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="footer">
+
+        <p class="footp">
+            <strong>Powered by </strong>
+            <img src="images/napster.png" id="napster">
+            <img src="images/lastfm.png" id="lastfm">
+            <img src="images/youtube.png" id="youtube">
+        </p>
+
+        <p class="footp">
+            <strong>Connect with us! </strong>
+            <a href="https://www.instagram.com" target="_blank">
+                <img src="images/insta.png" id="insta">
+            </a>
+            <a href="https://www.twitter.com/jamcestry" target="_blank">
+                <img src="images/twitter.png" id="twitter">
+            </a>
+            <p class="footp">
+                <strong>&copy; 2018 Jamcestry</strong>
+            </p>
+
+
+    </div>
+    
+    <script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>
