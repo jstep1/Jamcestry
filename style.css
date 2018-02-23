@@ -98,6 +98,7 @@ html {
     font-size: 18px;
     padding-top:10px;
     color: white;
+    font-family: 'Unica One', cursive;
 }
 
 /* Opening screen search bar */
@@ -327,11 +328,7 @@ body .inflTreeIcon:hover, body .folTreeIcon:hover {
       padding-right:10px;
   }
  
-  /* Napster Icon needed specific styling */
-  #napster {
-      padding-right:0px;
-      padding-left: 3px;
-  }
+ 
 
 
   a.tooltips {outline:none; }
@@ -343,9 +340,13 @@ body .inflTreeIcon:hover, body .folTreeIcon:hover {
       width:320px; line-height:16px;
   }
   a.tooltips:hover span{
-      display:inline; position:absolute; 
-      border:2px solid black;  color:black;
+      display: inline; 
+      position:absolute; 
+      border:2px solid black;  
+      color:black;
       background: white;
+      width: auto;
+      
   }
   
   
