@@ -271,6 +271,7 @@ $(document).bind('keypress', function (e) {
     // Initial search function to generate artist information
 
 $("#addArtistOpener").on("click", function () {
+    if ($("#artistFormOpener").val() !== "") {
     event.preventDefault();
     userSearchDone = true;
     var userInput = $("#artistFormOpener").val();
@@ -290,6 +291,10 @@ $("#addArtistOpener").on("click", function () {
         $("#background-blur").fadeOut(500);
         $("#background-clean").fadeIn(500);
     });
+    }
+    else {
+        entryMod();
+    }
 });
 
     // Secondary search function that generates artist information from new user input
