@@ -1,14 +1,25 @@
-// Global variables and functions defined
+//// Jamcestry global variables
+
 
 var player = "";
 
-var treeOneButtons = $("<div class='tr1'>");
+var lastEntry = "";
 
-// var treeOne = true;
+var treeOneButtons = $("<div class='tr1'>");
 
 var expand = false;
 
 var userSearchDone = false;
+
+var created = false;
+
+var onTree = false;
+
+var count = 0;
+
+
+//// Jamcestry global functions
+
 
 entryMod = function () {
     $("#invalid").fadeIn(200);
@@ -23,22 +34,36 @@ hideMod = function () {
     $("#invalid").fadeOut(200);
 };
 
+showDivs = function () {
+    $("#influences").show();
+    $("#followers").show();
+    $("#toggle1").show();
+    $("#toggle2").show();
+}
+
+hideDivs = function () {
+    $("#influences").hide();
+    $("#followers").hide();
+    $("#toggle1").hide();
+    $("#toggle2").hide();
+}
+
 embedYoutube = function (input) {
     $("#player").html(
-        "<iframe id='ytplayer' type='text/html' width='480' height='270' src='https://www.youtube.com/embed?listType=search&list=" +
+        "<iframe id='ytplayer' type='text/html' width='100%' height='270' style='margin-bottom: 20px' src='https://www.youtube.com/embed?listType=search&list=" +
         input + "' frameborder='0'></iframe>");
 };
 
 
-// Function created to retrieve and display all relevant information about specified artist
+    // Primary function of the application that retrieves and displays all relevant information about specified artist
 
 cardCreation = function (enter) {
 
-    var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter +
+    var lastfmURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter +
         "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
     var napsterURL =
-        "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" +
+        "https://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" +
         enter + "&type=artist&limit=1";
 
 
@@ -48,6 +73,11 @@ cardCreation = function (enter) {
     }).then(function (response) {
 
         var artistName = response.artist.name;
+
+        if (!created) {
+            $("#" + player + count).text(artistName);
+            created = true;
+        }
 
         var imageSrc = response.artist.image[response.artist.image.length - 1];
 
@@ -62,7 +92,7 @@ cardCreation = function (enter) {
         var similarArtistsString = response.artist.similar.artist;
 
         var image = $("<img src='" + imageElement +
-            "' style='height: 200px; width: 200px; float: left; margin: 5px 20px 0 0'>");
+            "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
 
         $("#artist-name").html("<h2>" + artistName + "<h2>");
 
@@ -186,18 +216,28 @@ cardCreation = function (enter) {
     });
 
 };
+    // End card creation function
 
-// End card creation function
 
-// Change to secondary display
+cardGeneration = function(entry) {
+    created = true;
+    embedYoutube(entry);
+    cardCreation(entry);
+    lastEntry = entry;
+};
+
+
+//// Jamcestry Logic
+
+
+    // Initial display options
 
 $(".card").hide();
 $("#searchBar").hide();
 $("#page-header").hide();
 $(".footer").hide();
 
-
-// Assign keypress to Enter key
+    // Assign search functionality to "enter" key
 
 $(document).bind('keypress', function (e) {
     if (e.keyCode == 13 && !userSearchDone) {
@@ -208,109 +248,120 @@ $(document).bind('keypress', function (e) {
     }
 });
 
-// Opening screen search function
+    // Initial search function to generate artist information
 
 $("#addArtistOpener").on("click", function () {
     event.preventDefault();
     userSearchDone = true;
-    var userInputOpener = $("#artistFormOpener").val();
-    userInputOpener = userInputOpener.replace("+", " ");
-    cardCreation(userInputOpener);
+    var userInput = $("#artistFormOpener").val();
+    player = userInput.replace(" ", "");
+    embedYoutube(userInput);
+    cardCreation(userInput);
     $("#artistFormOpener").val("");
     $(".icons").fadeOut(500);
     $("#searchBarOpener").fadeOut(500);
-    $(treeOneButtons).html("<hr>" + userInputOpener + "<hr>");
+    $(treeOneButtons).html("<div class='treetop' id='" + player + "'><hr><span id='" + player + count + "'>" + userInput + "</span><hr></div>");
     $("#tree1").append(treeOneButtons);
     $(".icons").promise().done(function () {
-        $(".footer").fadeIn(2000);
+        $(".footer").fadeIn(3000);
         $("#page-header").fadeIn(500);
         $("#searchBar").fadeIn(500);
         $(".card").fadeIn(1000);
         $("#background-blur").fadeOut(500);
         $("#background-clean").fadeIn(500);
-        $("#wat").hide()
     });
 });
-    
-    // Submit artist selection and begin the function to generate their information
-        
-    $("#addArtist").on("click", function () {
-        if ($("#artistForm").val() !== "") {
-            event.preventDefault();
-            var userInput = $("#artistForm").val();
-            treeOneButtons.append("<hr>" + userInput + "<hr>");
-            $("#tree1").append(treeOneButtons);
-            userInput = userInput.replace(" ", "+");
-            embedYoutube(userInput);
-            cardCreation(userInput);
-            $("#artistForm").val("");
-            $("#tree1").append(treeOneButtons);
-        }
-         
-        else {
-            entryMod();
-        }
 
-    });
+    // Secondary search function that generates artist information from new user input
 
-
-    
-    // Generation function runs once a "influencers" button is clicked
-        
-    $(document).on("click", "#infl", function () {
-        var userInput = $(this).text();
+$("#addArtist").on("click", function () {
+    if ($("#artistForm").val() !== "") {
+        event.preventDefault();
+        created = false;
+        onTree = false;
+        count++;
+        var userInput = $("#artistForm").val();
+        player = userInput.replace(" ", "");
         embedYoutube(userInput);
         cardCreation(userInput);
-        treeOneButtons.append($("<button id='inflTree' class='btn inflTreeIcon' width='100%'>").html("<span><img src='images/seedIconWhite.png' class='seedWhite' width='30' heigh='25'>" + userInput + "</span>"));
+        $("#artistForm").val("");
+        showDivs();
+        treeOneButtons.append("<div class='treetop' id='" + player + "'><hr><span id='" + player + count + "'>" + userInput + "</span><hr></div>");
         $("#tree1").append(treeOneButtons);
+        enter = function () {
+            lastEntry = $("#artist-name").text();
+        }
+        setTimeout(enter, 3000);
+    } else {
+        entryMod();
+    }
 
-    });
+});
 
-    // Create card from tree
+    // Creates new card once "influencers" button is clicked from the card
 
-    $(document).on("click", ".inflTreeIcon", function () {
-        var userInput = $(this).text()
-        cardCreation(userInput);
-    });
-    
-    // Generation function runs once a "followers" button is clicked
-        
-    $(document).on("click", "#fol", function () {
-        var userInput = $(this).text();
-        embedYoutube(userInput);
-        cardCreation(userInput);
-        treeOneButtons.append($("<button id='folTree' class='btn folTreeIcon' width='100%'>").html("<span><img src='images/treeIconWhite.png' class='treeWhite' width='30' height='30' style='display: inline; vertical-align: middle'>" + userInput + "</span>"));
-        $("#tree1").append(treeOneButtons);
+$(document).on("click", "#infl", function () {
+    var userInput = $(this).text();
+    cardGeneration(userInput);
+    if (!onTree) {
+        treeOneButtons.append($("<button id='inflTree' class='btn inflTreeIcon' width='100%'>").html("<span><img src='images/seedIconWhite.png' class='seedWhite' width='30' heigh='25'>" + userInput + "</span>"))
+    } else {
+        treeOneButtons.append("<div class='treetop' id='" + player + "'><hr><span id='" + player + count + "'>" + userInput + "</span><hr></div>");
+        onTree = false;
+    }
+    $("#tree1").append(treeOneButtons);
 
-    });
+});
 
-    // Generate card from tree
+    // Creates new card once a "followers" button is clicked from the card
 
-    $(document).on("click", ".folTreeIcon", function () {
-        var userInput = $(this).text()
-        cardCreation(userInput);
-    });
+$(document).on("click", "#fol", function () {
+    var userInput = $(this).text();
+    cardGeneration(userInput);
+    if (!onTree) {
+        treeOneButtons.append($("<button id='folTree' class='btn folTreeIcon' width='100%'>").html("<span><img src='images/treeIconWhite.png' class='treeWhite' width='30' height='30' style='display: inline; vertical-align: middle'>" + userInput + "</span>"))
+    } else {
+        treeOneButtons.append("<div class='treetop' id='" + player + "'><hr><span id='" + player + count + "'>" + userInput + "</span><hr></div>");
+        onTree = false;
+    }
+    $("#tree1").append(treeOneButtons);
 
-    // Clear tree
+});
 
-    $(document).on("click", "#clear1", function () {
-        $(".tr1").empty();
-    });
+    // Creates new card once any button is clicked in the tree
+
+$(document).on("click", "#inflTree, #folTree, .treetop", function () {
+    var search = $(this).text();
+    embedYoutube(search);
+    cardCreation(search);
+    hideDivs();
+    if (search === lastEntry) {
+        showDivs();
+    }
+});
+
+    // Clear working tree on "clear tree" button click
+
+$(document).on("click", "#clear1", function () {
+    $(".tr1").empty();
+    onTree = true;
+    showDivs();
+});
 
     // Expand or shorten bio section
 
-    $(document).on("click", ".bio", function () {
-        if (!expand) {
-            $(".bio").removeAttr("id", "bio");
-            $("#see").text("See Less...");
-            expand = true;
-        } else {
-            $(".bio").attr("id", "bio");
-            $("#see").text("See More...");
-            expand = false;
-        }
-    });
+$(document).on("click", ".bio", function () {
+    if (!expand) {
+        $(".bio").removeAttr("id", "bio");
+        $("#see").text("See Less...");
+        expand = true;
+    } else {
+        $(".bio").attr("id", "bio");
+        $("#see").text("See More...");
+        expand = false;
+    }
+});
 
-    // Closes modals
+    // Close modals
 
-    $(document).on("click", ".close", hideMod);
+$(document).on("click", ".close", hideMod);
