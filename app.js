@@ -1,5 +1,19 @@
+//// Initialize Firebase for email address collection
+
+var config = {
+    apiKey: "AIzaSyDrH9EgIqbFUdTJelsxfVYi321-aPBxUVU",
+    authDomain: "jamcestry-51487.firebaseapp.com",
+    databaseURL: "https://jamcestry-51487.firebaseio.com",
+    projectId: "jamcestry-51487",
+    storageBucket: "jamcestry-51487.appspot.com",
+    messagingSenderId: "1078137461626"
+  };
+
+firebase.initializeApp(config);
+
 //// Jamcestry global variables
 
+var database = firebase.database();
 
 var player = "";
 
@@ -20,6 +34,11 @@ var count = 0;
 
 //// Jamcestry global functions
 
+emailMod = function () {
+    $("#email").fadeIn(200);
+    $(document).find(".modal-body input").val("example@email.com");
+    localStorage.setItem("Has visited", "");
+}
 
 entryMod = function () {
     $("#invalid").fadeIn(200);
@@ -32,6 +51,7 @@ showMod = function () {
 hideMod = function () {
     $("#exampleModal").fadeOut(200);
     $("#invalid").fadeOut(200);
+    $("#email").fadeOut(200);
 };
 
 showDivs = function () {
@@ -251,6 +271,7 @@ $(document).bind('keypress', function (e) {
     // Initial search function to generate artist information
 
 $("#addArtistOpener").on("click", function () {
+    if ($("#artistFormOpener").val() !== "") {
     event.preventDefault();
     userSearchDone = true;
     var userInput = $("#artistFormOpener").val();
@@ -272,6 +293,10 @@ $("#addArtistOpener").on("click", function () {
         $("#wat").hide();
         
     });
+    }
+    else {
+        entryMod();
+    }
 });
 
     // Secondary search function that generates artist information from new user input
@@ -363,6 +388,23 @@ $(document).on("click", ".bio", function () {
         expand = false;
     }
 });
+
+
+    // Collect email addresses and store them in Firebase
+
+if(localStorage.getItem("Has visited") !== "true"){
+emailMod();
+}
+
+$(".sbm").on("click", function() {
+    event.preventDefault();
+    var enterEmail = $(document).find(".modal-body input").val();
+    localStorage.setItem("Has visited", "true");
+        if($(".modal-body input").val() !== "" && $(".modal-body input").val() !== "example@email.com") {
+        database.ref("/emails").push(enterEmail);
+    }
+});
+
 
     // Close modals
 

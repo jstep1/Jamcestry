@@ -16,7 +16,7 @@
 <div id="background-clean"></div>
 
 <body>
-    <p id ="wat">a</p>
+    <p id="wat">a</p>
 
     <div id="page-header">
         <h1>
@@ -27,6 +27,27 @@
     </div>
 
     <div id="content-container">
+            <div class="modal" tabindex="-1" role="dialog" id="email" style="opacity: 100%">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Welcome to Jamcestry!</h5>
+                                <button type="button" class="close sbm" data-dismiss="#invalid" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Enter your email address for our newest updates:</label>
+                                        <input type="text" class="form-control" id="email-address"><span aria-hidden="true"></span>
+                                      </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary close sbm" data-dismiss="#sent">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         <div class="modal" tabindex="-1" role="dialog" id="invalid" style="opacity: 100%">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -138,7 +159,7 @@
                             
                         
                     </span>
-                   
+
                 </p>
             </div>
             <button type="button" class="btn clear-tree" id="clear1" style="margin-top:5px">Clear Tree</button>
@@ -155,9 +176,15 @@
         <div>
             <h1 id="openingHeader">Jamcestry</h1>
             <div class="bigicons">
-                <img src="images/magnify.png" id="iconz"></panel><img src="images/learn.png" id="iconz"><img src="images/build.png" id="iconz"><br>
-                </div>
-                <div id= "iconzText">Search.<span style="display:inline-block; width: 80px;"></span> Learn.<span style="display:inline-block; width: 90px;"></span> Build.</div>
+                <img src="images/magnify.png" id="iconz">
+                </panel>
+                <img src="images/learn.png" id="iconz">
+                <img src="images/build.png" id="iconz">
+                <br>
+            </div>
+            <div id="iconzText">Search.
+                <span style="display:inline-block; width: 80px;"></span> Learn.
+                <span style="display:inline-block; width: 90px;"></span> Build.</div>
 
         </div>
         <div class="row">
@@ -168,53 +195,54 @@
                     </div>
                 </form>
             </div>
-            </div>
-                <div>
-                   
-                </div>
-                <div>
-
-                    <button type="button" class="btn btn-primary" id="addArtistOpener">Submit</button>
-
-                </div>
         </div>
+        <div>
+
+        </div>
+        <div>
+
+            <button type="button" class="btn btn-primary" id="addArtistOpener">Submit</button>
+
+        </div>
+    </div>
     </div>
 
     </div>
 
     <div class="footer">
-        <div class ="row">
+        <div class="row">
             <div class="col-md-4">
-                    <p class="footp" style="float:left;">
-                            <strong>Powered by </strong>
-                            <img src="images/napster.png" id="napster">
-                            <img src="images/lastfm.png" id="lastfm">
-                            <img src="images/youtube.png" id="youtube">
-                        </p>
+                <p class="footp" style="float:left;">
+                    <strong>Powered by </strong>
+                    <img src="images/napster.png" id="napster">
+                    <img src="images/lastfm.png" id="lastfm">
+                    <img src="images/youtube.png" id="youtube">
+                </p>
             </div>
             <div class="col-md-4">
                 <br>
-                
-                    <p class="footp" style="text-align:center">
-                            <strong>&copy; 2018 Jamcestry</strong>
-                        </p>
+
+                <p class="footp" style="text-align:center">
+                    <strong>&copy; 2018 Jamcestry</strong>
+                </p>
             </div>
             <div class="col-md-4">
-                    <p class="footp" style="float:right;">
-                            <strong>Connect with us! </strong>
-                            <a href="https://www.instagram.com" target="_blank">
-                                <img src="images/insta.png" id="insta">
-                            </a>
-                            <a href="https://www.twitter.com/jamcestry" target="_blank">
-                                <img src="images/twitter.png" id="twitter">
-                            </a>
-                            </p>
-             </div>
+                <p class="footp" style="float:right;">
+                    <strong>Connect with us! </strong>
+                    <a href="https://www.instagram.com" target="_blank">
+                        <img src="images/insta.png" id="insta">
+                    </a>
+                    <a href="https://www.twitter.com/jamcestry" target="_blank">
+                        <img src="images/twitter.png" id="twitter">
+                    </a>
+                </p>
+            </div>
         </div>
 
     </div>
-    
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    
 </body>
 
 </html>
