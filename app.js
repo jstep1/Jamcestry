@@ -390,9 +390,8 @@ emailMod();
 }
 
 $(".sbm").on("click", function() {
-    console.log("hi");
+    event.preventDefault();
     var enterEmail = $(document).find(".modal-body input").val();
-    console.log(enterEmail);
     localStorage.setItem("Has visited", "true");
         if($(".modal-body input").val() !== "" && $(".modal-body input").val() !== "example@email.com") {
         database.ref("/emails").push(enterEmail);
