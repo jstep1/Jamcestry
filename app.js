@@ -112,7 +112,7 @@ cardCreation = function (enter) {
         var similarArtistsString = response.artist.similar.artist;
 
         var image = $("<img src='" + imageElement +
-            "' style='height: 200px; width: 200px; float: left; margin-right: 10px'>");
+            "' style='height: 200px; width: 200px; float: left; margin-right: 10px; margin-top: 7px'>");
 
         $("#artist-name").html("<h2>" + artistName + "<h2>");
 
