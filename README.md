@@ -15,7 +15,7 @@ Find your favorite artists and...
 
 You can even build a "Tree Tracker" to see the historical progression that created this artist and the impact they have had on the music industry:
 
-![jam](images/jam.gif)
+![jam](images/jam.mp4)
 
 We hope you enjoy using this application as much as we did building it. Please contact one of the contributors if you have any questions.
 
