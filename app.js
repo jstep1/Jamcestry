@@ -59,11 +59,11 @@ embedYoutube = function (input) {
 
 cardCreation = function (enter) {
 
-    var lastfmURL = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter +
+    var lastfmURL = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + enter +
         "&autocorrect=1&api_key=229233f9c10fcdec813ab2191288db9f&format=json";
 
     var napsterURL =
-        "http://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" +
+        "https://api.napster.com/v2.2/search?apikey=ZDRkYzMyYmEtMmVjMy00YmUwLThmNDQtOTc3Y2UzMGEzNTNm&query=" +
         enter + "&type=artist&limit=1";
 
 
