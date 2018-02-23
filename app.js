@@ -146,9 +146,9 @@ cardCreation = function (enter) {
             }
         }
 
-        influencesIDs.splice(4);
+        influencesIDs.splice(10);
 
-        followersIDs.splice(4);
+        followersIDs.splice(10);
 
         for (var i = 0; i < influencesIDs.length; i++) {
 
