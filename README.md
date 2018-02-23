@@ -3,7 +3,7 @@ Welcome to Jamcestry - an application built for music fanatics everywhere.
 
 https://jstep1.github.io/Jamcestry/index.html
 
-<img src = "images/jamhomepage.png">
+<img src = "images/jamhomepage.png" style="height='50%'; width='50%'">
 
 Find your favorite artists and...
 
@@ -11,11 +11,11 @@ Find your favorite artists and...
 - Check out their music, interviews, and more
 - See which artists influenced their music and those who were influenced by them
 
-<img src = "images/jamsearch.png">
+<img src = "images/jamsearch.png" style="height='50%'; width='50%'">
 
 You can even build a "Tree Tracker" to see the historical progression that created this artist and the impact they have had on the music industry:
 
-<img src = "images/jamtree.png">
+<img src = "images/jamtree.png" style="height='50%'; width='50%'">
 
 We hope you enjoy using this application as much as we did building it. Please contact one of the contributors if you have any questions.
 
