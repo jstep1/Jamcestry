@@ -16,7 +16,7 @@ Find your favorite artists and...
 You can even build a "Tree Tracker" to see the historical progression that created this artist and the impact they have had on the music industry:
 
 <p align="center">
-  <img width="460" height="300" src="images/jamcestry.gif">
+  <img width="360" height="500" src="images/jamcestry.gif">
 </p>
 
 We hope you enjoy using this application as much as we did building it. Please contact one of the contributors if you have any questions.
