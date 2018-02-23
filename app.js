@@ -269,6 +269,8 @@ $("#addArtistOpener").on("click", function () {
         $(".card").fadeIn(1000);
         $("#background-blur").fadeOut(500);
         $("#background-clean").fadeIn(500);
+        $("#wat").hide();
+        
     });
 });
 

@@ -337,7 +337,7 @@ body .inflTreeIcon:hover, body .folTreeIcon:hover {
   a.tooltips span {
       z-index:10;display:none; padding:14px 20px;
       margin-top:-120px; margin-left:-340px;
-      width:320px; line-height:16px;
+      width:364px; line-height:16px;
   }
   a.tooltips:hover span{
       display: inline; 
